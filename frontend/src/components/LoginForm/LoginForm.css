@@ -1,0 +1,33 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  
+    input {
+        width: 300px;
+        padding: 0.5rem 1rem;
+    }
+
+    button {
+        width: 100px;
+        margin: 0 auto;
+        background-color: rgb(223, 236, 239);
+        color: rgb(9, 27, 78);
+        font-size: 15px;
+    }
+}
+
+.form_input {
+    margin: 0 auto;
+}
+
+.input_password {
+    width: 300px;
+    padding: 0.5rem 1rem;
+}
+
+.header_form {
+    display: flex;
+    font-size: 24px;
+    color: rgb(9, 27, 78);
+}

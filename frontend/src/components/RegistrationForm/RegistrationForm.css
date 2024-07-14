@@ -1,0 +1,26 @@
+.input_form {
+    display: flex;
+    flex-direction: column;
+    width: 30em;
+    margin: 0 auto;
+}
+
+.header_title {
+    margin-bottom: 30px;
+}
+
+.ant-form {
+    width: 300px;
+}
+
+.form_item {
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.btn_reg {
+    background-color: rgb(223, 236, 239);
+    color: rgb(9, 27, 78);
+    font-size: 15px;
+}

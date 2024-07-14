@@ -1,0 +1,279 @@
+/*!******************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/StartMenu/StartMenu.css ***!
+  \******************************************************************************************/
+.menu {
+    display: flex;
+    margin-top: 20px;
+    width: 1280px;
+    height: 260px;
+    flex-wrap: wrap;  
+}
+
+.menu_title {
+    text-align: left;
+    width: 10em;
+    font-style: normal;
+    font-size: 55px;
+    color: rgb(9, 27, 78);
+}
+
+.menu_image {
+    padding-top: 30px;
+    padding-left: 140px;
+    margin: 0 auto;
+    width: 280px;
+    height: 220px;
+    opacity: 0.8;
+    transition: 1s;
+}
+
+.menu_image:hover {
+    opacity: 1; 
+    transition: 1s;
+}
+
+.menu_text {
+    width: 35em;
+    text-align: left;
+}
+
+.login_btn {
+    float:left;
+    color: rgb(9, 27, 78);
+    font-size: 17px;
+    width: 150px;
+    background-color: rgb(223, 236, 239);
+}
+
+.auth_btn {
+    float:left;
+    color: rgb(9, 27, 78);
+    font-size: 17px;
+    width: 150px;
+    background-color: rgb(223, 236, 239);
+    margin-left: 10px;
+}
+
+.menu_info {
+    margin-top: 120px;
+}
+
+.menu_info_image {
+    transition: 1s;
+    opacity: 0.7;
+    width: 600px;
+    height: 300px;
+}
+
+.menu_info_image:hover {
+    opacity: 1; 
+    transition: 1s;
+}
+
+.text_info {
+    color: rgb(9, 27, 78);
+}
+/*!******************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/LoginForm/LoginForm.css ***!
+  \******************************************************************************************/
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  
+    input {
+        width: 300px;
+        padding: 0.5rem 1rem;
+    }
+
+    button {
+        width: 100px;
+        margin: 0 auto;
+        background-color: rgb(223, 236, 239);
+        color: rgb(9, 27, 78);
+        font-size: 15px;
+    }
+}
+
+.form_input {
+    margin: 0 auto;
+}
+
+.input_password {
+    width: 300px;
+    padding: 0.5rem 1rem;
+}
+
+.header_form {
+    display: flex;
+    font-size: 24px;
+    color: rgb(9, 27, 78);
+}
+/*!********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/RegistrationForm/RegistrationForm.css ***!
+  \********************************************************************************************************/
+.input_form {
+    display: flex;
+    flex-direction: column;
+    width: 30em;
+    margin: 0 auto;
+}
+
+.header_title {
+    margin-bottom: 30px;
+}
+
+.ant-form {
+    width: 300px;
+}
+
+.form_item {
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.btn_reg {
+    background-color: rgb(223, 236, 239);
+    color: rgb(9, 27, 78);
+    font-size: 15px;
+}
+/*!***************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/App.css ***!
+  \***************************************************************/
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+/*!******************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminMenu/AdminMenu.css ***!
+  \******************************************************************************************/
+th {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.ant-table-cell {
+    text-align: center;
+}
+
+:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper .ant-table-thead >tr>th, 
+:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper .ant-table-thead >tr>td {
+    text-align: center;
+}
+/*!****************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/UserMenu/UserMenu.css ***!
+  \****************************************************************************************/
+.user_menu {
+    display: flex;
+    margin-top: 25px;
+}
+
+.user_header {
+    display: flex;
+}
+
+.card_user_btn {
+    margin-left:auto;
+}
+
+.user_cloud_image {
+    width: 75px;
+    height: 60px;
+}
+
+.user_header_text {
+    font-size: 40px;
+}
+
+.upload_btn {
+    display: flex;
+    justify-content: center;
+}
+
+.card_user {
+    color: rgb(9, 27, 78);
+    width: 300px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.card_user_text {
+    font-size: 16px;
+    text-align: left;
+}
+
+.card_user_btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.list_content {
+    flex-wrap: wrap;
+    margin-left: 20px;
+    height: max-content;
+    position: relative;
+    z-index: 1;
+}
+
+.card_file.card {
+    padding: 10px;
+    background-color: rgb(236, 248, 254);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    text-align: left;
+    height: max-content;
+}
+
+.card_text_file {
+    color: rgb(9, 27, 78);
+    overflow-wrap: break-word;
+    width: 35em;
+}
+
+.card_file_img {
+    width: 120px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.btn_card_file {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.card_text_comment:hover {
+    cursor: pointer;
+    color: rgb(51, 155, 246);
+}
+
+.card-text, .card-title {
+    margin: 0 0 5px 10px;
+}
+
+
+
+/* имя файла, комментарий, размер, дата загрузки, дата последнего скачивания; */
+
+/* для каждого файла должны быть доступны следующие операции: 
+удаление, переименование, просмотр (в браузере или через загрузку на локальный диск), 
+копирование специальной ссылки на файл для предоставления доступа 
+другим пользователям или использования его в качестве ресурса в веб-приложениях; */
+
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
+  \*****************************************************************/
+:root {
+  font-family: Trebuchet MS, sans-serif;
+    src: url(../9f1aa0037c24e0f6935e.ttf);
+  line-height: 1.5;
+  font-weight: 400;
+}
+

@@ -1,0 +1,72 @@
+.menu {
+    display: flex;
+    margin-top: 20px;
+    width: 1280px;
+    height: 260px;
+    flex-wrap: wrap;  
+}
+
+.menu_title {
+    text-align: left;
+    width: 10em;
+    font-style: normal;
+    font-size: 55px;
+    color: rgb(9, 27, 78);
+}
+
+.menu_image {
+    padding-top: 30px;
+    padding-left: 140px;
+    margin: 0 auto;
+    width: 280px;
+    height: 220px;
+    opacity: 0.8;
+    transition: 1s;
+}
+
+.menu_image:hover {
+    opacity: 1; 
+    transition: 1s;
+}
+
+.menu_text {
+    width: 35em;
+    text-align: left;
+}
+
+.login_btn {
+    float:left;
+    color: rgb(9, 27, 78);
+    font-size: 17px;
+    width: 150px;
+    background-color: rgb(223, 236, 239);
+}
+
+.auth_btn {
+    float:left;
+    color: rgb(9, 27, 78);
+    font-size: 17px;
+    width: 150px;
+    background-color: rgb(223, 236, 239);
+    margin-left: 10px;
+}
+
+.menu_info {
+    margin-top: 120px;
+}
+
+.menu_info_image {
+    transition: 1s;
+    opacity: 0.7;
+    width: 600px;
+    height: 300px;
+}
+
+.menu_info_image:hover {
+    opacity: 1; 
+    transition: 1s;
+}
+
+.text_info {
+    color: rgb(9, 27, 78);
+}

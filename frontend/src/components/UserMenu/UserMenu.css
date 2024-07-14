@@ -1,0 +1,100 @@
+.user_menu {
+    display: flex;
+    margin-top: 25px;
+}
+
+.user_header {
+    display: flex;
+}
+
+.card_user_btn {
+    margin-left:auto;
+}
+
+.user_cloud_image {
+    width: 75px;
+    height: 60px;
+}
+
+.user_header_text {
+    font-size: 40px;
+}
+
+.upload_btn {
+    display: flex;
+    justify-content: center;
+}
+
+.card_user {
+    color: rgb(9, 27, 78);
+    width: 300px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.card_user_text {
+    font-size: 16px;
+    text-align: left;
+}
+
+.card_user_btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.list_content {
+    flex-wrap: wrap;
+    margin-left: 20px;
+    height: max-content;
+    position: relative;
+    z-index: 1;
+}
+
+.card_file.card {
+    padding: 10px;
+    background-color: rgb(236, 248, 254);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    text-align: left;
+    height: max-content;
+}
+
+.card_text_file {
+    color: rgb(9, 27, 78);
+    overflow-wrap: break-word;
+    width: 35em;
+}
+
+.card_file_img {
+    width: 120px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.btn_card_file {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.card_text_comment:hover {
+    cursor: pointer;
+    color: rgb(51, 155, 246);
+}
+
+.card-text, .card-title {
+    margin: 0 0 5px 10px;
+}
+
+
+
+/* имя файла, комментарий, размер, дата загрузки, дата последнего скачивания; */
+
+/* для каждого файла должны быть доступны следующие операции: 
+удаление, переименование, просмотр (в браузере или через загрузку на локальный диск), 
+копирование специальной ссылки на файл для предоставления доступа 
+другим пользователям или использования его в качестве ресурса в веб-приложениях; */
