@@ -14,10 +14,10 @@ export const StartMenu = () => {
         <img className='menu_image' src='/asset/cloud.png' />
       </div>
       <div className='menu_button'>
-        <Link className='login' to='/login'>
+        <Link className='login' to='/mycloud/login'>
           <Button className='login_btn'>Войти</Button>
         </Link>
-        <Link className='login' to='/reg'>
+        <Link className='login' to='/mycloud/reg'>
           <Button className='auth_btn'>Регистрация</Button>
         </Link>
       </div>
