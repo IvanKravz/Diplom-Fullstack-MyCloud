@@ -11,12 +11,12 @@ export const StartMenu = () => {
           <h4 className='menu_text'>Загрузите в MyCloud свои файлы.
             Пользуйтесь приложением чтобы сохранить все самое необходимое</h4>
         </div>
-        <img className='menu_image' src='/static/cloud.png' />
+        <img className='menu_image' src='/asset/cloud.png' />
       </div>
       <div className='menu_button'>
-        <Link className='login' to='/login'>
+        {/* <Link className='login' to='/login'>
           <Button className='login_btn'>Войти</Button>
-        </Link>
+        </Link> */}
         <Link className='login' to='/reg'>
           <Button className='auth_btn'>Регистрация</Button>
         </Link>
@@ -24,7 +24,7 @@ export const StartMenu = () => {
         <div className='menu_info'>
         <h2 className='text_info'>Приложение для хранения всех данных</h2>
         <h4 className='text_info'>Используйте MyCloud для хранения фотографий, видеозаписей и файлов</h4>
-        <img className='menu_info_image' src='/static/333.jpg' />
+        <img className='menu_info_image' src='/asset/333.jpg' />
       </div>
     </>
   )

@@ -43,9 +43,9 @@ module.exports = {
         filename: 'css/[name].css',
         chunkFilename: '[id].css',
     }),
-    new HtmlWebPackPlugin({
-        template: './templates/frontend/index.html',
-        filename: './index.html',
-      }),
+    // new HtmlWebPackPlugin({
+    //     template: './templates/frontend/index.html',
+    //     filename: './index.html',
+    //   }),
   ],
 };
