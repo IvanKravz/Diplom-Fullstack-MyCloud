@@ -11,8 +11,8 @@ function App() {
 
   const routes = createBrowserRouter(
     createRoutesFromElements(
-      <Route exact path='/' element={<Layout/>}>
-        <Route index element={<StartMenu/>}/>
+      <Route path='/' element={<Layout/>}>
+        <Route path='/mycloud' element={<StartMenu/>}/>
         <Route path='/login' element={<LoginForm/>}/>
         <Route path='/reg' element={<RegistrationForm/>}/>
         <Route path='/admin' element={<AdminMenu/>}/>
