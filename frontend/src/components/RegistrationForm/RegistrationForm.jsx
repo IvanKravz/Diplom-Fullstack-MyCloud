@@ -39,8 +39,8 @@ export const RegistrationForm = () => {
 
             <Form className='input_form' variant="filled">
 
-                <Form.Item className='form_item'
-
+                <Form.Item 
+                    className='form_item'
                     name="InputLogin"
                     rules={[{ required: true, message: 'Введите логин!' }]}>
                     <Input
@@ -50,13 +50,15 @@ export const RegistrationForm = () => {
                         placeholder="Логин латинскими буквами и цифрами" />
                 </Form.Item>
 
-                <Form.Item className='form_item'
+                <Form.Item 
+                    className='form_item'
                     name="InputName"
                     rules={[{ required: true, message: 'Введите имя!' }]}>
                     <Input allowClear placeholder="Имя" />
                 </Form.Item>
 
-                <Form.Item className='form_item'
+                <Form.Item 
+                    className='form_item'
                     name="TextArea"
                 >
                     <Input.TextArea allowClear placeholder="Комментарий" />
@@ -75,7 +77,8 @@ export const RegistrationForm = () => {
                     <Select options={options} placeholder="Выбрать пользователя" />
                 </Form.Item>
 
-                <Form.Item className='form_item'
+                <Form.Item 
+                    className='form_item'
                     name="Cascader"
                     rules={[{ required: true, message: 'Введите пароль!' }]}
                 >

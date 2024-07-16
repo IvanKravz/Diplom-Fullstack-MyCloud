@@ -27,7 +27,8 @@ export const LoginForm = () => {
                 <HomeOutlined className="header_form" onClick={handleGoBack} />
             </div>
             <h2 className="header_title">Вход в аккаунт</h2>
-            <Form className='form_input'
+            <Form 
+                className='form_input'
                 form={form}
                 name="basic"
                 initialValues={{ remember: true }}
@@ -36,9 +37,10 @@ export const LoginForm = () => {
             >
                 <Form.Item
                     name="username"
+                    allowClear
                     rules={[{ required: true, message: 'Введите имя!' }]}
                 >
-                    <Input placeholder="Имя" />
+                    <Input allowClear placeholder="Имя" />
                 </Form.Item>
 
                 <Form.Item
