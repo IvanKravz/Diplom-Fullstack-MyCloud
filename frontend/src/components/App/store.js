@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import searchReducer from "./Slices/searchSlice";
-// import cardFilmSliceReducer from "./Slices/cardFilmSlice";
+import adminReducer from "./Slices/AdminSlice";
+import authReducer from "./Slices/authSlice";
 // import favouritesReducer from "./Slices/favouritesSlice";
 
 export const store = configureStore({
   reducer: {
-  //   search: searchReducer,
-  //   card: cardFilmSliceReducer,
+    admin: adminReducer,
+    auth: authReducer,
   //   favourites: favouritesReducer,
   },
 });

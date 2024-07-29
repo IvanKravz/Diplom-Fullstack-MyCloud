@@ -150,19 +150,7 @@
 /*!******************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminMenu/AdminMenu.css ***!
   \******************************************************************************************/
-th {
-    text-align: center;
-    margin: 0 auto;
-}
 
-.ant-table-cell {
-    text-align: center;
-}
-
-:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper .ant-table-thead >tr>th, 
-:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper .ant-table-thead >tr>td {
-    text-align: center;
-}
 /*!****************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/UserMenu/UserMenu.css ***!
   \****************************************************************************************/

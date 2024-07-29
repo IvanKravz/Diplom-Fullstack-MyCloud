@@ -8,29 +8,17 @@ import { useNavigate } from "react-router-dom"
 export const RegistrationForm = () => {
 
     const options = [
-        { label: 'Пользователь', value: 1 },
-        { label: 'Администратор', value: 2 },
+        { label: 'Пользователь', value: 0 },
+        { label: 'Администратор', value: 1 },
     ];
 
     const navigate = useNavigate();
 
-    // const [form] = Form.useForm();
-
-    // const onReset = () => {
-    //     form.resetFields();
-    // };
-
     const handleGoBack = () => {
-        navigate(-1)
+        navigate('/mycloud')
     };
 
     return (
-        //  <form className='form' /* action={handleFormAction} */> 
-        //     <h2>Вход в аккаунт</h2>
-        //     <input type="text" name="username" placeholder="Имя"/>
-        //     <input type="password" name="password" placeholder="Пароль"/>
-        //     <button>Вход</button>
-        // </form>
         <div className='form_reg'>
             <div>
                 <HomeOutlined className="header_form" onClick={handleGoBack} />
@@ -55,13 +43,6 @@ export const RegistrationForm = () => {
                     name="InputName"
                     rules={[{ required: true, message: 'Введите имя!' }]}>
                     <Input allowClear placeholder="Имя" />
-                </Form.Item>
-
-                <Form.Item 
-                    className='form_item'
-                    name="TextArea"
-                >
-                    <Input.TextArea allowClear placeholder="Комментарий" />
                 </Form.Item>
 
                 <Form.Item className='form_item'
@@ -89,11 +70,11 @@ export const RegistrationForm = () => {
                         placeholder="Пароль" />
                 </Form.Item>
 
-                <Form.Item >
+                {/* <Form.Item >
                     <Upload  name="logo" action="/upload.do" listType="picture">
                         <Button icon={<UploadOutlined />}>Загрузить фото</Button>
                     </Upload>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item>
                     <Button
