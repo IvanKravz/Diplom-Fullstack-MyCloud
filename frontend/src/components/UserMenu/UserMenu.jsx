@@ -13,6 +13,7 @@ export const UserMenu = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.auth.user);
     const navigate = useNavigate();
+    console.log(user)
 
     useEffect(() => {
         dispatch(getUser());
@@ -22,9 +23,9 @@ export const UserMenu = () => {
         console.log(user)
     }
 
-    const submitLogout = () => {
-        dispatch(logout);
-        navigate('/mycloud/login');
+    const submitLogout = async () => {
+        await dispatch(logout);
+        navigate('/mycloud');
     }
 
 return (
@@ -33,6 +34,13 @@ return (
             <div className='user_header_text'>Личный кабинет</div>
             <img className='user_cloud_image' src='src\assets\cloud.png' />
             <div className='card_user_btn'>
+                {user['is_staff'] && 
+                <Button
+                    variant="primary"
+                    // onClick={submitLogout}
+                    >Кабинет администратора
+                </Button>}
+
                 <Button
                     variant="primary"
                     onClick={submitLogout}
@@ -53,6 +61,8 @@ return (
                 />
                 <Card.Body className='card_user_text'>
                     <Card.Title>Имя: {user.username}</Card.Title>
+                    <Card.Title>Логин: {user.userlogin}</Card.Title>
+                    <Card.Title>Почта: {user.email}</Card.Title>
                     <Card.Text>Количество файлов: 'FFFF'</Card.Text>
                     <Card.Text>Общий размер файлов: 'FFFF'</Card.Text>
                 </Card.Body>

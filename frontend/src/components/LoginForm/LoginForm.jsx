@@ -13,7 +13,6 @@ export const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
     const dispatch = useAppDispatch();
-    const user = useAppSelector(state => state.auth.user);
 
     const onReset = () => {
         form.resetFields();
@@ -23,10 +22,9 @@ export const LoginForm = () => {
         navigate('/mycloud')
     };
 
-    const handleLogin = async () => {
+    const submitLogin = async () => {
         const response = await dispatch(login({ username, password }));
         if (login.fulfilled.match(response)) {
-            
             navigate('/mycloud/user');
         } else {
             setError('Вход в систему не удался. Неверные данные!');
@@ -67,9 +65,7 @@ export const LoginForm = () => {
                         className='input_password'
                         placeholder="Пароль"
                         value={password}
-                        {...(error && { error: error })}
                         onChange={(e) => setPassword(e.target.value)}
-                    // onKeyUp={(e) => e.key === 'Enter' && handleLogin()}
                     />
                 </Form.Item>
 
@@ -84,9 +80,8 @@ export const LoginForm = () => {
                     <Button
                         type="primary"
                         htmlType="submit"
-                        onClick={handleLogin}
-                    >
-                        Войти
+                        onClick={submitLogin}
+                    >Войти
                     </Button>
                     <Button htmlType="button" onClick={onReset}>
                         Сбросить

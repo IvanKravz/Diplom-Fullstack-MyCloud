@@ -6,6 +6,7 @@ import { RegistrationForm } from './components/RegistrationForm/RegistrationForm
 import './App.css'
 import { AdminMenu } from './components/AdminMenu/AdminMenu'
 import { UserMenu } from './components/UserMenu/UserMenu'
+import { NotFound } from './components/NotFound/NotFound'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='mycloud/reg' element={<RegistrationForm/>}/>
         <Route path='mycloud/admin' element={<AdminMenu/>}/>
         <Route path='mycloud/user' element={<UserMenu/>}/>
+        <Route path='*' element={<NotFound/>}/>
       </Route>
     )
   )

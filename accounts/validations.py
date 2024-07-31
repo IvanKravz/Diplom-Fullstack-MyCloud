@@ -22,6 +22,6 @@ def custom_validation(data):
         raise ValidationError('Выберите другой пароль')
     
     if not email or UserModel.objects.filter(email=email).exists():
-        raise ValidationError('Такой email уже существует')
+        raise ValidationError('Выберите другой email')
     
     return data

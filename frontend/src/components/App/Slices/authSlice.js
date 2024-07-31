@@ -15,6 +15,39 @@ const initialAuthState = {
     error: null,
 };
 
+export const register = createAsyncThunk(
+    'auth/register',
+    async ({ userlogin, username, email, is_staff, password }) => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userlogin,
+                    username,
+                    email,
+                    is_staff,
+                    password
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Неверные данные')
+            }
+
+            const data = await response.json()
+            sessionStorage.setItem('user', JSON.stringify(data))
+            return data
+        } catch (error) {
+            console.log(error)
+            throw error;
+        }
+    }
+)
+
+
 export const login = createAsyncThunk(
     'auth/login',
     async ({ username, password }) => {
@@ -41,14 +74,14 @@ export const login = createAsyncThunk(
 )
 
 
-export const logout = () => {
+export const logout = async () => {
     sessionStorage.removeItem('user')
     client.post(
         "/api/logout",
         { withCredentials: true }
     )
 }
-       
+
 
 export const getUser = createAsyncThunk(
     'auth/getUser',
@@ -84,9 +117,12 @@ export const authSlice = createSlice({
             .addCase(login.rejected, (state, action) => {
                 state.error = action.error.message || 'Вход в систему не удался';
             })
+            .addCase(register.rejected, (state, action) => {
+                state.error = action.error.message || 'Вход в систему не удался';
+                console.log('state.error', state.error)
+            })
             .addCase(getUser.fulfilled, (state, action) => {
                 state.user = action.payload;
-                console.log('state.user', state.user)
             })
     }
 })
