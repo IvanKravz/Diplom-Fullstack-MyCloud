@@ -16,7 +16,7 @@ function App() {
         <Route path='/mycloud' element={<StartMenu/>}/>
         <Route path='mycloud/login' element={<LoginForm/>}/>
         <Route path='mycloud/reg' element={<RegistrationForm/>}/>
-        <Route path='mycloud/admin' element={<AdminMenu/>}/>
+        <Route path='mycloud/user/admin' element={<AdminMenu/>}/>
         <Route path='mycloud/user' element={<UserMenu/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Route>

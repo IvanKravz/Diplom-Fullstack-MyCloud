@@ -72,9 +72,9 @@ export const adminSlice = createSlice({
                 state.users = action.payload;
                 state.loading = false;
             })
-            .addCase(deleteUser.fulfilled, (state, action) => {
-                state.users = action.payload;
-            })
+            // .addCase(deleteUser.fulfilled, (state, action) => {
+            //     state.users = action.payload;
+            // })
             // .addCase(loadUsers.fulfilled, (state, action) => {
             //     state.files = action.payload;
             // })

@@ -26,9 +26,10 @@ export const AdminMenu = () => {
     };
 
     const handleDelete = (user) => {
-        dispatch(deleteUser(user.id)).then(() => {
-            dispatch(loadUsers());
-        })
+        dispatch(deleteUser(user.id))
+            .then(() => {
+                dispatch(loadUsers());
+            })
     }
 
     const handleEdit = (user) => {

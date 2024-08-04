@@ -20,6 +20,7 @@ export const register = createAsyncThunk(
     async ({ userlogin, username, email, is_staff, password }) => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/register', {
+                credentials: 'include',
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export const register = createAsyncThunk(
             throw error;
         }
     }
-)
+);
 
 
 export const login = createAsyncThunk(
@@ -53,6 +54,7 @@ export const login = createAsyncThunk(
     async ({ username, password }) => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
+                credentials: 'include',
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,16 +73,16 @@ export const login = createAsyncThunk(
             throw error;
         }
     }
-)
+);
 
 
 export const logout = async () => {
     sessionStorage.removeItem('user')
     client.post(
         "/api/logout",
-        { withCredentials: true }
+        { withCredentials: true, credentials: 'include' }
     )
-}
+};
 
 
 export const getUser = createAsyncThunk(
@@ -88,6 +90,7 @@ export const getUser = createAsyncThunk(
     async () => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/users/${JSON.parse(sessionStorage.getItem('user')).id}`, {
+                credentials: 'include',
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +108,7 @@ export const getUser = createAsyncThunk(
             throw error;
         }
     }
-)
+);
 
 
 export const authSlice = createSlice({
@@ -125,7 +128,7 @@ export const authSlice = createSlice({
                 state.user = action.payload;
             })
     }
-})
+});
 
 
 export default authSlice.reducer

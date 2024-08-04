@@ -1,6 +1,7 @@
 .user_menu {
     display: flex;
     margin-top: 25px;
+    justify-content: center;
 }
 
 .user_header {
@@ -33,7 +34,7 @@
 }
 
 .card_user_text {
-    font-size: 16px;
+    font-size: 14px;
     text-align: left;
 }
 
@@ -44,6 +45,7 @@
 }
 
 .list_content {
+    width: 60%;
     flex-wrap: wrap;
     margin-left: 20px;
     height: max-content;
@@ -56,20 +58,23 @@
     background-color: rgb(236, 248, 254);
     border-radius: 8px;
     margin-bottom: 10px;
-    display: flex;
+    display: flex; 
     text-align: left;
     height: max-content;
+    font-size: 15px;
+    justify-content: space-between;
 }
 
 .card_text_file {
+    text-align: left;
     color: rgb(9, 27, 78);
     overflow-wrap: break-word;
-    width: 35em;
+    margin-top: 20px;
 }
 
 .card_file_img {
-    width: 120px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
 }
 
@@ -78,7 +83,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .card_text_comment:hover {
@@ -90,11 +95,8 @@
     margin: 0 0 5px 10px;
 }
 
-
-
-/* имя файла, комментарий, размер, дата загрузки, дата последнего скачивания; */
-
-/* для каждого файла должны быть доступны следующие операции: 
-удаление, переименование, просмотр (в браузере или через загрузку на локальный диск), 
-копирование специальной ссылки на файл для предоставления доступа 
-другим пользователям или использования его в качестве ресурса в веб-приложениях; */
+.card_img {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

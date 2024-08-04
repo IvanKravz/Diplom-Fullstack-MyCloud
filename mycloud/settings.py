@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
+    'files.apps.FilesConfig',
     'rest_framework',
     'corsheaders',
 ]
@@ -129,7 +130,7 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend', 'src', 'asset'),
+    os.path.join(BASE_DIR, 'frontend', 'src', 'assets'),
 ]
 
 # Default primary key field type
