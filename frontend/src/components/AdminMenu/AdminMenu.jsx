@@ -15,6 +15,7 @@ export const AdminMenu = () => {
     const users = useAppSelector(state => state.admin.users);
     const loading = useAppSelector(state => state.admin.loading);
     const { Column, ColumnGroup } = Table;
+    const filesUser = useAppSelector(state => state.file.filesUser)
 
     useEffect(() => {
         dispatch(loadUsers())

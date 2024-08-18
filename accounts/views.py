@@ -13,9 +13,15 @@ from .serializers import ApiUserSerializers, UserRegisterSerializer, UserLoginSe
 
 class ApiUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
+    
     permission_classes = [
         permissions.AllowAny
     ]
+    
+    authentication_classes = ([
+        SessionAuthentication
+    ])
+
     serializer_class = ApiUserSerializers
 
 
@@ -23,6 +29,9 @@ class UserRegister(APIView):
     permission_classes = [
         permissions.AllowAny
     ]
+    authentication_classes = ([
+        SessionAuthentication
+    ])
     
     def post(self, request):
         clean_data = custom_validation(request.data)
@@ -33,6 +42,7 @@ class UserRegister(APIView):
                 return Response({
                     'id': user.id,
                     'username': user.username,
+                    'userlogin': user.username,
                     'password': user.password
                 }, status=status.HTTP_200_OK)
             
@@ -56,6 +66,7 @@ class UserLogin(APIView):
             return Response({
                 'id': user.id,
                 'username': user.username,
+                'userlogin': user.userlogin,
                 'password': user.password
             }, status=status.HTTP_200_OK)
         
@@ -70,6 +81,7 @@ class UserView(APIView):
     permission_classes = [
         permissions.IsAuthenticated
     ]
+
     authentication_classes = [
         SessionAuthentication
     ]
@@ -79,8 +91,5 @@ class UserView(APIView):
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
     
     
-# def pageNotFound(request, exception):
-#     return render(request, '404.html', status=404)
-
 def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+    return render(request, 'frontend/404.html', status=404)

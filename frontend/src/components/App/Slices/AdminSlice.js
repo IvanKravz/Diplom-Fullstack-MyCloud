@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getCookie } from 'react-use-cookie';
+
+var csrftoken = getCookie('csrftoken');
 
 const initialAdminState = {
     users: [],
@@ -11,7 +14,7 @@ export const loadUsers = createAsyncThunk (
     'admin/loadUsers',
     async () => {
         const response = await fetch('http://127.0.0.1:8000/api/users/', {
-            // credentials: 'include',
+            credentials: 'include',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,6 +37,7 @@ export const deleteUser = createAsyncThunk (
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
             },
         })
 

@@ -51,7 +51,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
     'auth/login',
-    async ({ username, password }) => {
+    async ({ userlogin, password }) => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
                 credentials: 'include',
@@ -59,7 +59,7 @@ export const login = createAsyncThunk(
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ userlogin, password }),
             })
 
             if (!response.ok) {
@@ -119,6 +119,9 @@ export const authSlice = createSlice({
         builder
             .addCase(login.rejected, (state, action) => {
                 state.error = action.error.message || 'Вход в систему не удался';
+            })
+            .addCase(login.fulfilled, (state) => {
+                state.error = null;
             })
             .addCase(register.rejected, (state, action) => {
                 state.error = action.error.message || 'Вход в систему не удался';

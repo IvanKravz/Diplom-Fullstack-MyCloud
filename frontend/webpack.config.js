@@ -43,6 +43,7 @@ module.exports = {
         chunkFilename: '[id].css',
     }),
     new HtmlWebPackPlugin({
+        // favicon: './src/assets/cloud.png',
         template: './templates/frontend/index.html',
         filename: './index.html',
       }),

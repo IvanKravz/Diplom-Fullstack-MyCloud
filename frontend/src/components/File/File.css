@@ -1,3 +1,32 @@
-.card_file {
+.card_text_file {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card_text {
+    margin: 0;
+}
+
+.btn_card_file {
+    min-width: 133px;
+}
+
+.btn_upload {
+    width: 100%;
+}
+
+.input_update_file {
+    width: 100px;
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.input_text_file {
+    width: 100%;
+}
+
+.btn_comments {
+    /* width: 10px; */
     text-align: center;
 }

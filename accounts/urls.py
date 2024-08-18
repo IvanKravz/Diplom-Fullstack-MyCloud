@@ -23,17 +23,26 @@ urlpatterns = [
 
 
 # {
-#     "userlogin": "3333",
-#     "username": "S44Sssss",
+#     "userlogin": "Sdfdfg",
+#     "username": "Frr55",
 #     "email": "k33333s2@dsf.ru",
 #     "is_staff": true,
-#     "password": "Krw&w1234"
+#     "password": "Krw&w12345"
 # }
 
 # {
-#     "userlogin": "4444",
-#     "username": "S44Se45s",
+#     "userlogin": "S44Se45s",
+#     "username": "4444",
 #     "email": "k3errr3333s2@dsf.ru",
 #     "is_staff": false,
 #     "password": "Krwer&w1234"
+# }
+
+# {
+#         "userlogin": "S466yy",
+#         "username": "Gffr$$",
+#         "password": "GFrrt444#",
+#         "email": "k2@dsf.ru",
+#         "is_active": true,
+#         "is_staff": true
 # }

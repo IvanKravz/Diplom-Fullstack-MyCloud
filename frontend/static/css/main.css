@@ -164,6 +164,16 @@
     display: flex;
 }
 
+.user_header_text_cab {
+    font-size: 20px;
+}
+
+.upload_header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .card_user_btn {
     margin-left:auto;
 }
@@ -185,7 +195,6 @@
 .card_user {
     color: rgb(9, 27, 78);
     width: 300px;
-    cursor: pointer;
     border-radius: 8px;
 }
 
@@ -256,6 +265,86 @@
     flex-direction: column;
     text-align: center;
 }
+
+/*!********************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/File/File.css ***!
+  \********************************************************************************/
+.card_text_file {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card_text {
+    margin: 0;
+}
+
+.btn_card_file {
+    min-width: 133px;
+}
+
+.btn_upload {
+    width: 100%;
+}
+
+.input_update_file {
+    width: 100px;
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.input_text_file {
+    width: 100%;
+}
+
+.btn_comments {
+    /* width: 10px; */
+    text-align: center;
+}
+/*!************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/DownloadFile/DownloadFile.css ***!
+  \************************************************************************************************/
+.upload_file_menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.input_file {
+    margin-top: 10px;
+    display: flex;
+}
+
+.label_form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.upload_menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+
+}
+
+.input_upload {
+    visibility: hidden;
+}
+
+.upload_label {
+    display: flex;
+    width: 45px;
+}
+
+.img_upload {
+    width: 45px;
+    height: 30px;
+    cursor: pointer;
+}
+
 /*!*****************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
   \*****************************************************************/

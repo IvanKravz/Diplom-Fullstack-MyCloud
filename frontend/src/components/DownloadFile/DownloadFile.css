@@ -1,0 +1,40 @@
+.upload_file_menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.input_file {
+    margin-top: 10px;
+    display: flex;
+}
+
+.label_form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.upload_menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+
+}
+
+.input_upload {
+    visibility: hidden;
+}
+
+.upload_label {
+    display: flex;
+    width: 45px;
+}
+
+.img_upload {
+    width: 45px;
+    height: 30px;
+    cursor: pointer;
+}

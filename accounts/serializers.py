@@ -27,17 +27,17 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    userlogin = serializers.CharField()
     password = serializers.CharField()
 
     def check_user(self, data):
-        user = authenticate(username=data['username'], password=data['password'])
-        if not user:
-            raise serializers.ValidationError('Пользователь не найден')
-        return user
+        user = authenticate(username=data['userlogin'], password=data['password'])
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError('Пользователь не найден')
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'userlogin', 'username', 'email', 'is_staff', 'password')

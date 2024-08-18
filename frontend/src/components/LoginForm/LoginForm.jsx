@@ -9,7 +9,7 @@ import { useState } from 'react';
 export const LoginForm = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
-    const [username, setUserName] = useState('');
+    const [userlogin, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
     const dispatch = useAppDispatch();
@@ -23,11 +23,12 @@ export const LoginForm = () => {
     };
 
     const submitLogin = async () => {
-        const response = await dispatch(login({ username, password }));
+        const response = await dispatch(login({ userlogin, password }));
+        
         if (login.fulfilled.match(response)) {
             navigate('/mycloud/user');
         } else {
-            setError('Вход в систему не удался. Неверные данные!');
+            setError('Вход в систему не удался. Неверные данные!');        
         }
     };
 
@@ -46,13 +47,13 @@ export const LoginForm = () => {
                 required
             >
                 <Form.Item
-                    name="username"
+                    name="userlogin"
                     rules={[{ required: true, message: 'Введите логин!' }]}
                 >
                     <Input
                         allowClear
                         placeholder="Логин"
-                        value={username}
+                        value={userlogin}
                         onChange={(e) => setUserName(e.target.value)}
                     />
                 </Form.Item>

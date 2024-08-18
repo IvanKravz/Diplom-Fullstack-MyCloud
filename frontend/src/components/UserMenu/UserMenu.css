@@ -8,6 +8,16 @@
     display: flex;
 }
 
+.user_header_text_cab {
+    font-size: 20px;
+}
+
+.upload_header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .card_user_btn {
     margin-left:auto;
 }
@@ -29,7 +39,6 @@
 .card_user {
     color: rgb(9, 27, 78);
     width: 300px;
-    cursor: pointer;
     border-radius: 8px;
 }
 

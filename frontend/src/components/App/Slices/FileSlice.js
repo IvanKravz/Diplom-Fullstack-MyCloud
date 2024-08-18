@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { getCookie } from 'react-use-cookie';
 
 const initialFileState = {
     files: [],
@@ -13,12 +13,6 @@ const initialFileState = {
 export const loadFiles = createAsyncThunk(
     'file/loadFiles',
     async () => {
-        const user = JSON.parse(sessionStorage.getItem('user'))
-
-        if (!user) {
-            throw new Error()
-        }
-
         try {
             const response = await fetch('http://127.0.0.1:8000/api/files', {
                 credentials: 'include',
@@ -29,7 +23,7 @@ export const loadFiles = createAsyncThunk(
             })
 
             if (!response.ok) {
-                throw new Error('Ошибка данных');
+                throw new Error('Ошибка загрузки файлов');
             }
 
             const data = response.json()
@@ -41,20 +35,23 @@ export const loadFiles = createAsyncThunk(
     }
 );
 
+
 export const deleteFile = createAsyncThunk(
     'file/deleteFile',
     async (id) => {
         try {
+            var csrftoken = getCookie('csrftoken');
             const response = await fetch(`http://127.0.0.1:8000/api/files/${id}`, {
-                // credentials: 'include',
+                credentials: 'include',
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
                 },
             })
 
             if (!response.ok) {
-                throw new Error('Ошибка данных');
+                throw new Error('Ошибка удаления');
             }
 
         } catch (error) {
@@ -64,6 +61,53 @@ export const deleteFile = createAsyncThunk(
 );
 
 
+export const uploadFile = createAsyncThunk(
+    'file/uploadFile',
+    async (formData) => {
+        try {
+            var csrftoken = getCookie('csrftoken');
+            const response = await fetch(`http://127.0.0.1:8000/api/files/`, {
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                method: 'POST',
+                body: formData,
+            })
+
+            if (!response.ok) {
+                throw new Error('Ошибка загрузки файла');
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+);
+
+export const updateFile = createAsyncThunk(
+    'file/updateFile',
+    async ({ id, newFileName, newDescription, dateDownload }) => {
+        try {
+            var csrftoken = getCookie('csrftoken');
+            const response = await fetch(`http://127.0.0.1:8000/api/files/${id}/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                method: 'PATCH',
+                body: JSON.stringify({ filename: newFileName, description: newDescription, downloadTime: dateDownload }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Файл не изменен');
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+)
+
 export const fileSlice = createSlice({
     name: 'file',
     initialState: initialFileState,
@@ -72,6 +116,9 @@ export const fileSlice = createSlice({
             if (!state.filesUser.some(file => action.payload.id === file.id)) {
                 state.filesUser.push(action.payload)
             }
+        },
+        clearFiles(state) {
+            state.filesUser = []
         },
     },
     extraReducers: (builder) => {
@@ -88,6 +135,10 @@ export const fileSlice = createSlice({
                 state.loading = false;
                 state.files = action.payload;
             })
+            .addCase(uploadFile.rejected, (state, action) => {
+                state.success = false;
+                state.error = action.error.message || 'Ошибка загрузки файла';
+            })
             .addCase(deleteFile.rejected, (state, action) => {
                 state.success = false;
                 state.error = action.error.message || 'Ошибка удаления';
@@ -95,5 +146,5 @@ export const fileSlice = createSlice({
     }
 });
 
-export const { addFile } = fileSlice.actions;
+export const { addFile, clearFiles, addFilesSize } = fileSlice.actions;
 export default fileSlice.reducer
