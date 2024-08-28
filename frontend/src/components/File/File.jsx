@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { Button, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { addFile, deleteFile, loadFiles, updateFile } from '../App/Slices/FileSlice';
-import { useAppDispatch } from '../App/hooks'
+import { useAppDispatch, useAppSelector } from '../App/hooks'
 import './File.css'
 import TextArea from 'antd/es/input/TextArea';
 
@@ -11,7 +11,6 @@ import { saveAs } from 'file-saver'
 
 export const File = ({ fileItem, fileSize }) => {
     const { id, file, filename, size, upload_time, downloadTime, description, link } = fileItem
-
     const dispatch = useAppDispatch();
     const [newFile, setNewFile] = useState(null)
     const [newFileName, setNewFilename] = useState(null)
@@ -19,19 +18,16 @@ export const File = ({ fileItem, fileSize }) => {
     const [click, setClick] = useState(false);
     const [clickComments, setClickComments] = useState(false);
     const isValid = /\.(png|svg|jpg|jpeg|gif)$/i.test(link);
-
-    function get_url(url) {
-        return url.split(/[#?]/)[0].split('.').pop().trim();
-    }
+    const error = useAppSelector(state => state.file.error);
 
     useEffect(() => {
         dispatch(addFile(fileItem))
     }, []);
 
-    const downloadDate = ({ id, file, link }) => {
+    const downloadDate = ({ id, file }) => {
         saveAs(file)
-        const dateDownload = new Date().toLocaleString()
-        dispatch(updateFile({ id:id, dateDownload: dateDownload }))
+        const dateDownload = new Date().toLocaleString("ru", {timeZone: "Europe/Moscow"})
+        dispatch(updateFile({ id: id, dateDownload: dateDownload }))
             .then(() => {
                 dispatch(loadFiles());
             })
@@ -50,19 +46,30 @@ export const File = ({ fileItem, fileSize }) => {
             });
     }
 
-    const handleUpdateFile = ({ id, newFileName = filename, newDescription }) => {
+    const handleUpdateFileName = ({ id, newFileName }) => {
+
+        if (newFileName === null) {
+            return
+        }
 
         if (newFileName.length <= 10) {
-            dispatch(updateFile({ id: id, newFileName: newFileName, newDescription: newDescription }))
+            dispatch(updateFile({ id: id, newFileName: newFileName }))
                 .then(() => {
                     dispatch(loadFiles());
                 })
-                .catch((error) => {
-                    console.error('Ошибка изменения файла:', error);
-                });
         }
         setClick(false);
+    }
 
+    const handleUpdateFileDescription = ({ id, newDescription }) => {
+        if (newDescription === null || newDescription === '') {
+            newDescription = 'комментарий нет'
+        }
+        dispatch(updateFile({ id: id, newDescription: newDescription }))
+            .then(() => {
+                dispatch(loadFiles());
+            })
+        setClick(false);
     }
 
     return (
@@ -70,7 +77,7 @@ export const File = ({ fileItem, fileSize }) => {
             <div className='card_img'>
                 {!click &&
                     <>
-                        {filename}.{get_url(file)}
+                        {filename}
                     </>
                 }
                 {click &&
@@ -99,11 +106,15 @@ export const File = ({ fileItem, fileSize }) => {
             <Card.Body className='card_text_file'>
                 <Card.Text>Размер файла: {fileSize({ size })}</Card.Text>
                 <Card.Text>Дата загрузки файла: {upload_time}</Card.Text>
-                <Card.Text>Дата последнего скачивания: {downloadTime}</Card.Text>
+                <Card.Text>Дата последнего скачивания: {downloadTime} (МСК)</Card.Text>
 
                 {!clickComments && <Card.Text
                     className='card_text_comment'
-                    onClick={() => setClickComments(true)}>
+                    onClick={() => {
+                        setClickComments(true);
+                        setNewDescription(description)
+                        }
+                    }>
                     Комментарий: {description}
                 </Card.Text>
                 }
@@ -114,7 +125,7 @@ export const File = ({ fileItem, fileSize }) => {
                         > Комментарий: {
                                 <TextArea
                                     className='input_text_file'
-                                    label='Имя файла'
+                                    label='Комментарий'
                                     allowClear
                                     defaultValue={description}
                                     onChange={(e) => setNewDescription(e.target.value)}
@@ -124,10 +135,10 @@ export const File = ({ fileItem, fileSize }) => {
                         </Card.Text>
                         <div className='btn_comments'>
                             <Button
-                                onClick={() => handleUpdateFile({ id, newDescription })}
+                                onClick={() => handleUpdateFileDescription({ id, newDescription })}
                             >&#x2713;
                             </Button>
-                            <Button                                
+                            <Button
                                 onClick={() => setClickComments(false)}
                             >&#x2715;
                             </Button>
@@ -140,26 +151,26 @@ export const File = ({ fileItem, fileSize }) => {
                 <Button
                     className='btn_upload'
                     variant="primary"
-                    onClick={() => downloadDate({ id, file, link })}
-                >Скачать
+                    onClick={() => downloadDate({ id, file })}
+                >Скачать &#128190;
                 </Button>
                 <Button
                     variant="primary"
                     onClick={() => submitDelete(id)}
-                >Удалить
+                >Удалить &#128465;
                 </Button>
                 {!click &&
                     <Button
                         variant="primary"
                         onClick={() => setClick(true)}
-                    >Переименовать
+                    >Переименовать &#128396;
                     </Button>
                 }
                 {click &&
                     <>
                         <Button
                             variant="primary"
-                            onClick={() => handleUpdateFile({ id, newFileName })}
+                            onClick={() => handleUpdateFileName({ id, newFileName })}
                         >ОК
                         </Button>
                         <Button

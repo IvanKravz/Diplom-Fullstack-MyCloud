@@ -1,3 +1,6 @@
+export const loginValidate = "^[A-Z][a-zA-Z0-9]{4,20}$"
+export const passwordValidate = "(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}"
+
 export const getReadableFileSizeString = (fileSizeInBytes) => {
     var i = -1;
     var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];

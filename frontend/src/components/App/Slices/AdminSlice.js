@@ -50,18 +50,6 @@ export const deleteUser = createAsyncThunk (
     }
 )
 
-export const createUser = createAsyncThunk (
-    'admin/createUser',
-    async ({ userlogin, username, email, password, is_staff }) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/register/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-    }
-)
-
 
 export const adminSlice = createSlice({
     name: 'admin',
@@ -76,12 +64,6 @@ export const adminSlice = createSlice({
                 state.users = action.payload;
                 state.loading = false;
             })
-            // .addCase(deleteUser.fulfilled, (state, action) => {
-            //     state.users = action.payload;
-            // })
-            // .addCase(loadUsers.fulfilled, (state, action) => {
-            //     state.files = action.payload;
-            // })
     }      
 })
 

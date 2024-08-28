@@ -12,10 +12,6 @@ class ApiFileViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated
     ] 
 
-    # permission_classes = [
-    #     permissions.AllowAny
-    # ]
-
     authentication_classes = ([
         SessionAuthentication
     ])
@@ -28,19 +24,3 @@ class ApiFileViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED, content_type='application/json')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type='application/json')
-    
-    # def update(self, request):
-    #     return
-    
-    def partial_update(self, request, pk=None):
-        file = self.get_object()
-        serializer = ApiFileSerializers(file, data=request.data, partial=True)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-        serializer.save()
-        return Response(serializer.data)
-
-    
-
-

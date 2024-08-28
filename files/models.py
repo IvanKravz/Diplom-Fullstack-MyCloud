@@ -1,41 +1,69 @@
 from django.db import models
 from accounts.models import User
+from django.dispatch import receiver
 import os
-import math
 from django.conf import settings
-from datetime import datetime
+
+
+def uniq_filename(filename):
+    if File.objects.filter(filename=filename):
+        filename = get_file_name(filename)  
+    return filename
+    
+
+def get_file_name(filename):
+    count = 0
+    file_root, file_extention = os.path.splitext(filename)
+    while File.objects.filter(filename=filename):
+        count += 1
+        filename = f'{file_root}_{count}{file_extention}'
+    return filename
+
 
 class File(models.Model):
     id = models.AutoField(primary_key=True)
     file = models.FileField()
-    filename = models.CharField(max_length=10, null=True)
-    description = models.TextField(null=True)
-    size = models.CharField(null=True)
-    link = models.CharField(null=True)
-    upload_time = models.CharField(default=datetime.now().strftime('%d %b %Y %H:%M:%S'))
-    downloadTime = models.CharField(null=True)
+    filename = models.CharField(max_length=20, null=True, default='')
+    description = models.TextField(null=True, default='комментарий нет')
+    size = models.CharField(null=True, default='')
+    link = models.CharField(null=True, default='')
+    upload_time = models.DateTimeField(verbose_name='Время загрузки', auto_now_add=True)
+    downloadTime = models.CharField(default='', null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
     def save(self, *args, **kwargs):
-        # print('upload_time', self.upload_time)
-        # userfolder = self.user.username
-        # old_full_filepath = self.file.path
-        # new_full_filepath = os.path.join(settings.MEDIA_ROOT, userfolder, self.filename)
-        # self.file.name = os.path.join(userfolder, self.filename)
-        # # os.rename(old_full_filepath, new_full_filepath)
-        # date = datetime.now().strftime('%d %b %Y %H:%M:%S')
-        # if self.upload_time == date:
-        #     self.upload_time = date
-        # else:
-        #     self.upload_time = self.upload_time
+        userfolder = self.user.username
+        file_root, file_extention = os.path.splitext(self.file.name)
+        if self.id:
+        ## Меняем существующий файл
+            filepath = self.file.path
+            file_root, file_extention_file_name = os.path.splitext(self.filename)
+            if file_extention_file_name == '':
+                self.filename = f'{self.filename}{file_extention}'
+            new_filepath = os.path.join(settings.MEDIA_ROOT, userfolder, self.filename)
+            self.file.name = os.path.join(userfolder, self.filename)
+            os.rename(filepath, new_filepath)
+        else:
+        ## Добавляем новый файл
+            if self.filename:
+                self.filename = uniq_filename(f'{self.filename}{file_extention}')
+                self.file.name = os.path.join(userfolder, self.filename)
+            else:
+                self.filename = uniq_filename(f'{file_root[:10]}{file_extention}')
+                self.file.name = os.path.join(userfolder, self.filename)
 
         self.link = self.file.url
         self.size = self.file.size
-        # self.upload_time = datetime.now().strftime('%d %b %Y %H:%M:%S')
-        
-        super().save(*args, **kwargs)
 
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.file.name)
+    
+
+@receiver(models.signals.post_delete, sender=File)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.file and os.path.isfile(instance.file.path):
+        os.remove(instance.file.path)   
+         

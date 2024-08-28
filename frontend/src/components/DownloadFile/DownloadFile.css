@@ -19,9 +19,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
     margin-bottom: 10px;
-
 }
 
 .input_upload {
@@ -37,4 +36,9 @@
     width: 45px;
     height: 30px;
     cursor: pointer;
+    opacity: 0.7;
+}
+.img_upload:hover {
+    opacity: 1;
+    transition: 1s;
 }

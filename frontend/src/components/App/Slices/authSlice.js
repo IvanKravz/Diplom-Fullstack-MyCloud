@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { getCookie } from 'react-use-cookie';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -35,6 +36,7 @@ export const register = createAsyncThunk(
             })
 
             if (!response.ok) {
+                console.log(response)
                 throw new Error('Неверные данные')
             }
 
@@ -51,7 +53,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
     'auth/login',
-    async ({ userlogin, password }) => {
+    async ({ username, password }) => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
                 credentials: 'include',
@@ -59,7 +61,7 @@ export const login = createAsyncThunk(
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userlogin, password }),
+                body: JSON.stringify({ username, password }),
             })
 
             if (!response.ok) {
@@ -110,6 +112,36 @@ export const getUser = createAsyncThunk(
     }
 );
 
+export const userEdit = createAsyncThunk(
+    'auth/userEdit',
+    async ({ userlogin, username, email, password }) => {
+        var csrftoken = getCookie('csrftoken');
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${JSON.parse(sessionStorage.getItem('user')).id}/`, {
+            credentials: 'include',
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                userlogin: userlogin,
+                username: username,
+                email: email,
+                password: password
+            }),
+        })
+
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Неверные данные')
+        }
+
+
+        // const data = await response.json()
+        // return data
+    }
+)
+
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -124,12 +156,15 @@ export const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(register.rejected, (state, action) => {
-                state.error = action.error.message || 'Вход в систему не удался';
+                state.error = action.error.message;
                 console.log('state.error', state.error)
+            })
+            .addCase(register.fulfilled, (state) => {
+                state.error = null;
             })
             .addCase(getUser.fulfilled, (state, action) => {
                 state.user = action.payload;
-            })
+            });
     }
 });
 

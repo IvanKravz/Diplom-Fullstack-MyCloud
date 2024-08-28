@@ -27,7 +27,8 @@
 }
 
 .header_form {
-    display: flex;
+    width: 24px;
     font-size: 24px;
     color: rgb(9, 27, 78);
+    display: flex;
 }

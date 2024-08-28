@@ -8,6 +8,14 @@ class ApiUserSerializers(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        instance.userlogin = validated_data.get('userlogin', instance.userlogin)
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        instance.password = validated_data.get('password', instance.password)
+        instance.save()
+        return instance
+
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +23,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         fields = ('userlogin', 'username', 'email', 'is_staff', 'password')
     
     def create(self, clean_data):
-        print(clean_data)
         user_obj = User.objects.create_user(
             userlogin=clean_data['userlogin'],
             username=clean_data['username'],
@@ -27,11 +34,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.Serializer):
-    userlogin = serializers.CharField()
+    username = serializers.CharField()
     password = serializers.CharField()
 
     def check_user(self, data):
-        user = authenticate(username=data['userlogin'], password=data['password'])
+        user = authenticate(username=data['username'], password=data['password'])
         if user and user.is_active:
             return user
         raise serializers.ValidationError('Пользователь не найден')

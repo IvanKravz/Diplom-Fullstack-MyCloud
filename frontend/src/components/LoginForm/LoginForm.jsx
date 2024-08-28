@@ -2,14 +2,14 @@ import './LoginForm.css'
 import { Button, Checkbox, Form, Input, Space } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from '../App/hooks';
+import { useAppDispatch } from '../App/hooks';
 import { login } from '../App/Slices/authSlice';
 import { useState } from 'react';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
-    const [userlogin, setUserName] = useState('');
+    const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
     const dispatch = useAppDispatch();
@@ -18,26 +18,19 @@ export const LoginForm = () => {
         form.resetFields();
     };
 
-    const handleGoBack = () => {
-        navigate('/mycloud')
-    };
-
     const submitLogin = async () => {
-        const response = await dispatch(login({ userlogin, password }));
-        
+        const response = await dispatch(login({ username, password }));
+
         if (login.fulfilled.match(response)) {
             navigate('/mycloud/user');
         } else {
-            setError('Вход в систему не удался. Неверные данные!');        
+            setError('Вход в систему не удался. Неверные данные!');
         }
     };
 
     return (
         <div className='form'>
-            <div>
-                <HomeOutlined className="header_form" onClick={handleGoBack} />
-            </div>
-            <h2 className="header_title">Вход в аккаунт</h2>
+            <HomeOutlined className="header_form" onClick={() => navigate('/mycloud')} />
             <Form
                 className='form_input'
                 form={form}
@@ -47,13 +40,13 @@ export const LoginForm = () => {
                 required
             >
                 <Form.Item
-                    name="userlogin"
-                    rules={[{ required: true, message: 'Введите логин!' }]}
+                    name="username"
+                    rules={[{ required: true, message: 'Введите имя!' }]}
                 >
                     <Input
                         allowClear
-                        placeholder="Логин"
-                        value={userlogin}
+                        placeholder="Имя"
+                        value={username}
                         onChange={(e) => setUserName(e.target.value)}
                     />
                 </Form.Item>
@@ -78,15 +71,8 @@ export const LoginForm = () => {
                 </Form.Item>
 
                 <Space>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        onClick={submitLogin}
-                    >Войти
-                    </Button>
-                    <Button htmlType="button" onClick={onReset}>
-                        Сбросить
-                    </Button>
+                    <Button onClick={submitLogin}>Войти</Button>
+                    <Button onClick={onReset}>Сбросить</Button>
                 </Space>
             </Form>
             {error}

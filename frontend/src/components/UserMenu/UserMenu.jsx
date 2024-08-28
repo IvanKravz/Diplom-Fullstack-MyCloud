@@ -2,7 +2,7 @@ import React from 'react';
 import './UserMenu.css'
 import { Button } from 'antd';
 import Card from 'react-bootstrap/Card';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from '../App/hooks'
 import { getUser, logout } from '../App/Slices/authSlice';
@@ -11,6 +11,7 @@ import { File } from '../File/File'
 import { Loading } from '../Loading/Loading'
 import { DownloadFile } from '../DownloadFile/DownloadFile';
 import { getReadableFileSizeString, getSize } from '../Validations/Validations';
+import { UserEdit } from '../UserEdit/UserEdit';
 
 export const UserMenu = () => {
     const dispatch = useAppDispatch();
@@ -19,8 +20,9 @@ export const UserMenu = () => {
     const files = useAppSelector(state => state.file.files)
     const filesUser = useAppSelector(state => state.file.filesUser)
     const loading = useAppSelector(state => state.file.loading);
+    const error = useAppSelector(state => state.file.error);
     const navigate = useNavigate();
-    
+    const [click, setClick] = useState(false);
 
     useEffect(() => {
         dispatch(loadFiles());
@@ -31,6 +33,10 @@ export const UserMenu = () => {
         await dispatch(logout);
         dispatch(clearFiles())
         navigate('/mycloud');
+    }
+
+    const clickOff = () => {
+        setClick(false)
     }
 
     return (
@@ -47,7 +53,7 @@ export const UserMenu = () => {
                             {user['is_staff'] &&
                                 <Button
                                     variant="primary"
-                                // onClick={submitLogout}
+                                    onClick={() => navigate('/mycloud/user/admin')}
                                 >Кабинет администратора
                                 </Button>
                             }
@@ -61,8 +67,8 @@ export const UserMenu = () => {
                     <div className='upload_header'>
                         {loading && <Loading className='card_load' />}
                         {!loading && <DownloadFile />}
+                        <h3>{error}</h3>
                     </div>
-
                     {!loading &&
                         <section className='user_menu'>
                             <Card className='card_user'>
@@ -79,15 +85,23 @@ export const UserMenu = () => {
                                     />
                                 }
                                 <Card.Body className='card_user_text'>
-                                    <Card.Title>Имя: {user.username}</Card.Title>
-                                    <Card.Title>Логин: {user.userlogin}</Card.Title>
-                                    <Card.Title>Почта: {user.email}</Card.Title>
-                                    <Card.Text>Количество файлов: {filesUser.length}</Card.Text>
-                                    <Card.Text>Общий размер файлов: {getSize(filesUser)}</Card.Text>
+                                    <div>Имя: {user.username}</div>
+                                    <div>Логин: {user.userlogin}</div>
+                                    <div>Почта: {user.email}</div>
+                                    <div>Количество файлов: {filesUser.length}</div>
+                                    <div>Общий размер файлов: {getSize(filesUser)}</div>
+                                    {!click && <Button
+                                        variant="primary"
+                                        onClick={() => setClick(true)}
+                                    >Редактировать профиль
+                                    </Button>}
+
                                 </Card.Body>
+                                {click &&
+                                    <UserEdit clickOff={clickOff} />}
                             </Card>
                             <div className='list_content'>
-                                {files && files.map((file) => {
+                                {files && files?.map((file) => {
                                     if (file.user === userParse.id) {
                                         return (
                                             <File key={file.id} fileItem={file} fileSize={getReadableFileSizeString} />

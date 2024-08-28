@@ -4,7 +4,6 @@ from .validations import custom_validation
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from django.shortcuts import render
-from django.http import HttpResponseNotFound
 
 from rest_framework import viewsets, permissions, status
 from .models import User
@@ -23,6 +22,15 @@ class ApiUserViewSet(viewsets.ModelViewSet):
     ])
 
     serializer_class = ApiUserSerializers
+
+    def partial_update(self, request, *args, **kwargs): 
+        isinstance = self.get_object()
+        serializer = ApiUserSerializers(isinstance, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer.save()
+        return Response(serializer.data)
 
 
 class UserRegister(APIView):
@@ -43,7 +51,8 @@ class UserRegister(APIView):
                     'id': user.id,
                     'username': user.username,
                     'userlogin': user.username,
-                    'password': user.password
+                    'password': user.password,
+                    'is_staff': user.is_staff
                 }, status=status.HTTP_200_OK)
             
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -67,7 +76,8 @@ class UserLogin(APIView):
                 'id': user.id,
                 'username': user.username,
                 'userlogin': user.userlogin,
-                'password': user.password
+                'password': user.password,
+                'is_staff': user.is_staff
             }, status=status.HTTP_200_OK)
         
 

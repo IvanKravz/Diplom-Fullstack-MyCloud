@@ -13,7 +13,6 @@ const initialFileState = {
 export const loadFiles = createAsyncThunk(
     'file/loadFiles',
     async () => {
-        try {
             const response = await fetch('http://127.0.0.1:8000/api/files', {
                 credentials: 'include',
                 method: 'GET',
@@ -23,15 +22,11 @@ export const loadFiles = createAsyncThunk(
             })
 
             if (!response.ok) {
-                throw new Error('Ошибка загрузки файлов');
+                console.log('Файлы отсутствуют');
             }
 
             const data = response.json()
             return data
-
-        } catch (error) {
-            console.error(error)
-        }
     }
 );
 
@@ -87,7 +82,6 @@ export const uploadFile = createAsyncThunk(
 export const updateFile = createAsyncThunk(
     'file/updateFile',
     async ({ id, newFileName, newDescription, dateDownload }) => {
-        try {
             var csrftoken = getCookie('csrftoken');
             const response = await fetch(`http://127.0.0.1:8000/api/files/${id}/`, {
                 headers: {
@@ -99,12 +93,8 @@ export const updateFile = createAsyncThunk(
             })
 
             if (!response.ok) {
-                throw new Error('Файл не изменен');
+                throw new Error('Файл с таким именем уже существует!');
             }
-
-        } catch (error) {
-            console.error(error);
-        }
     }
 )
 
@@ -129,7 +119,6 @@ export const fileSlice = createSlice({
             })
             .addCase(loadFiles.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(loadFiles.fulfilled, (state, action) => {
                 state.loading = false;
@@ -142,6 +131,12 @@ export const fileSlice = createSlice({
             .addCase(deleteFile.rejected, (state, action) => {
                 state.success = false;
                 state.error = action.error.message || 'Ошибка удаления';
+            })
+            .addCase(updateFile.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+            .addCase(updateFile.fulfilled, (state) => {
+                state.error = null;
             });
     }
 });

@@ -105,9 +105,10 @@
 }
 
 .header_form {
-    display: flex;
+    width: 24px;
     font-size: 24px;
     color: rgb(9, 27, 78);
+    display: flex;
 }
 /*!********************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/RegistrationForm/RegistrationForm.css ***!
@@ -156,7 +157,6 @@
   \****************************************************************************************/
 .user_menu {
     display: flex;
-    margin-top: 25px;
     justify-content: center;
 }
 
@@ -199,8 +199,12 @@
 }
 
 .card_user_text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     font-size: 14px;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 .card_user_btn {
@@ -266,6 +270,12 @@
     text-align: center;
 }
 
+.btn_edit_user {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 /*!********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/File/File.css ***!
   \********************************************************************************/
@@ -280,7 +290,7 @@
 }
 
 .btn_card_file {
-    min-width: 133px;
+    min-width: 140px;
 }
 
 .btn_upload {
@@ -298,8 +308,9 @@
 }
 
 .btn_comments {
-    /* width: 10px; */
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
 }
 /*!************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/DownloadFile/DownloadFile.css ***!
@@ -325,9 +336,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
     margin-bottom: 10px;
-
 }
 
 .input_upload {
@@ -343,6 +353,11 @@
     width: 45px;
     height: 30px;
     cursor: pointer;
+    opacity: 0.7;
+}
+.img_upload:hover {
+    opacity: 1;
+    transition: 1s;
 }
 
 /*!*****************************************************************!*\

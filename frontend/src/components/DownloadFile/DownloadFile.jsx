@@ -7,9 +7,9 @@ import { loadFiles, uploadFile } from '../App/Slices/FileSlice';
 
 export const DownloadFile = () => {
     const dispatch = useAppDispatch();
-    const fileInputRef = useRef(null);
+    // const fileInputRef = useRef(null);
     const [filename, setFilename] = useState('')
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState('комментарий нет');
     const [click, setClick] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -23,7 +23,7 @@ export const DownloadFile = () => {
     };
 
     const handleUpload = () => {
-        if (selectedFile && filename.length <= 10) {
+         if (selectedFile && filename.length <= 10) {
             const formData = new FormData();
             formData.append('file', selectedFile);
             formData.append('filename', filename);
@@ -53,30 +53,30 @@ export const DownloadFile = () => {
             {click &&
                 <>
                     <div className='upload_menu'>
+                    Выбрать файл
                         <label className='upload_label' >
+                            
                             <img className='img_upload' src={require('../../assets/Upload.png')} alt="Загрузка файла" />
+                            
                             <input
                                 className='input_upload'
                                 type="file"
-                                ref={fileInputRef}
+                                // ref={fileInputRef}
                                 onChange={handleFileInputChange} />
                         </label>
+                        
                         {selectedFile &&
                             <Button
                                 onClick={handleUpload}
-                            >Отправить файл
+                            >Отправить файл {selectedFile.name}
                             </Button>
                         }
                     </div>
-
-                    {selectedFile &&
-                        selectedFile.name
-                    }
                     <section className='upload_file_menu'>
                         <div className='input_text'>
                             <Input className='input_file'
                                 label='Имя файла'
-                                placeholder={selectedFile ? selectedFile.name : "Имя файла до 10 знаков"}
+                                placeholder="Имя файла до 10 знаков"
                                 allowClear
                                 value={filename}
                                 onChange={(e) => setFilename(e.target.value)}>
@@ -88,7 +88,7 @@ export const DownloadFile = () => {
                                 placeholder="Комментарий"
                                 allowClear
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}>
+                                onChange={(e) => {setDescription(e.target.value)}}>
                             </Input>
                         </div>
                     </section>

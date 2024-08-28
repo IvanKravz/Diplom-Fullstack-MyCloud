@@ -9,7 +9,7 @@
 }
 
 .btn_card_file {
-    min-width: 133px;
+    min-width: 140px;
 }
 
 .btn_upload {
@@ -27,6 +27,7 @@
 }
 
 .btn_comments {
-    /* width: 10px; */
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
 }
