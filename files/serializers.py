@@ -19,8 +19,3 @@ class ApiFileSerializers(serializers.ModelSerializer):
     
     def get_upload_time(self, obj):
         return obj.upload_time.strftime('%d %b %Y %H:%M:%S') if obj.upload_time else None
-
-    
-    
-    
-

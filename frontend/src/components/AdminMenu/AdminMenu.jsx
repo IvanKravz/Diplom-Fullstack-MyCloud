@@ -27,11 +27,7 @@ export const AdminMenu = () => {
         dispatch(loadFiles());
     }, [])
 
-    const checkUser = (user) => {
-        setUser(user)
-    }
-
-    const handleDelete = (user) => {
+    const handleDeleteUser = (user) => {
         dispatch(deleteUser(user.id))
             .then(() => {
                 dispatch(loadUsers());
@@ -97,7 +93,7 @@ export const AdminMenu = () => {
 
                                         />
                                         <UserDeleteOutlined
-                                            onClick={() => { setModalActive(true); checkUser(user) }}
+                                            onClick={() => { setModalActive(true); setUser(user) }}
                                             style={{ cursor: 'pointer', fontSize: '18px', color: 'FireBrick' }}
                                         />
                                     </Space>
@@ -116,7 +112,7 @@ export const AdminMenu = () => {
                 </>
             }
 
-            <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDelete={handleDelete} />
+            <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />
         </>
     );
 }
