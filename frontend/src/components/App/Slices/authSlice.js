@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { getCookie } from 'react-use-cookie';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -115,19 +114,18 @@ export const getUser = createAsyncThunk(
 export const userEdit = createAsyncThunk(
     'auth/userEdit',
     async ({ userlogin, username, email, password }) => {
-        var csrftoken = getCookie('csrftoken');
         const response = await fetch(`http://127.0.0.1:8000/api/users/${JSON.parse(sessionStorage.getItem('user')).id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
             },
             body: JSON.stringify({
-                userlogin: userlogin,
-                username: username,
-                email: email,
-                password: password
+                userlogin,
+                username,
+                email,
+                password
             }),
         })
 

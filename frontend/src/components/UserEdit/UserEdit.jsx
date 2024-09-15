@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Input } from 'antd';
 import { loginValidate, passwordValidate } from '../Validations/Validations'
-import { userEdit, getUser, login } from '../App/Slices/authSlice';
+import { userEdit, getUser } from '../App/Slices/authSlice';
 import { loadFiles } from '../App/Slices/FileSlice';
 import { useAppDispatch } from '../App/hooks';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export const UserEdit = ({ clickOff }) => {
 
     const submitUserEdit = async () => {
         const response = await dispatch(userEdit({ userlogin, username, email, password }))
-        console.log('response', response)
+        // console.log('response', response)
         if (userEdit.fulfilled.match(response)) {
             dispatch(getUser());
             // dispatch(login({ username, password }))

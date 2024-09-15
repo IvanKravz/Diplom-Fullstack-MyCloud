@@ -101,7 +101,7 @@ export const UserMenu = () => {
                                     <UserEdit clickOff={clickOff} />}
                             </Card>
                             <div className='list_content'>
-                                {files && files?.map((file) => {
+                                {files?.map((file) => {
                                     if (file.user === userParse.id) {
                                         return (
                                             <File key={file.id} fileItem={file} fileSize={getReadableFileSizeString} />

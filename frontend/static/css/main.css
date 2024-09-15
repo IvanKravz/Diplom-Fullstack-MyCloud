@@ -80,19 +80,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-  
-    input {
-        width: 300px;
-        padding: 0.5rem 1rem;
-    }
-
-    button {
-        width: 100px;
-        margin: 0 auto;
-        background-color: rgb(223, 236, 239);
-        color: rgb(9, 27, 78);
-        font-size: 15px;
-    }
 }
 
 .form_input {
@@ -116,16 +103,12 @@
 .input_form {
     display: flex;
     flex-direction: column;
-    width: 30em;
+    width: 300px;
     margin: 0 auto;
 }
 
 .header_title {
     margin-bottom: 30px;
-}
-
-.ant-form {
-    width: 300px;
 }
 
 .form_item {
@@ -152,6 +135,62 @@
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminMenu/AdminMenu.css ***!
   \******************************************************************************************/
 
+/*!********************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopup/ModalPopup.css ***!
+  \********************************************************************************************/
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    height: 150px;
+    width: 400px;
+    transform: scale(0.5);
+    transition: 0.4s all;
+}
+
+.modal_content.active {
+    transform: scale(1);
+}
+/*!******************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminCreateUser/AdminCreateUser.css ***!
+  \******************************************************************************************************/
+.input_create_form {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+}
+
+.form_input_item {
+    width: 200px;
+}
+
+.btn_create_user {
+    cursor: pointer;
+    color: SeaGreen;
+    font-size: 23px;
+}
 /*!****************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/UserMenu/UserMenu.css ***!
   \****************************************************************************************/

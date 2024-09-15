@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getCookie } from 'react-use-cookie';
 
-var csrftoken = getCookie('csrftoken');
-
 const initialAdminState = {
     users: [],
     files: [],
@@ -10,7 +8,7 @@ const initialAdminState = {
     error: null,
 };
 
-export const loadUsers = createAsyncThunk (
+export const loadUsers = createAsyncThunk(
     'admin/loadUsers',
     async () => {
         const response = await fetch('http://127.0.0.1:8000/api/users/', {
@@ -20,7 +18,7 @@ export const loadUsers = createAsyncThunk (
                 'Content-Type': 'application/json',
             },
         })
-    
+
         if (!response.ok) {
             throw new Error('Ошибка данных');
         }
@@ -30,14 +28,14 @@ export const loadUsers = createAsyncThunk (
     }
 )
 
-export const deleteUser = createAsyncThunk (
+export const deleteUser = createAsyncThunk(
     'admin/deleteUser',
     async (userId) => {
         const response = await fetch(`http://127.0.0.1:8000/api/users/${userId}/`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
             },
         })
 
@@ -50,6 +48,54 @@ export const deleteUser = createAsyncThunk (
     }
 )
 
+export const createUser = createAsyncThunk(
+    'admin/createUser',
+    async ({ userlogin, username, email, is_staff, password }) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/users/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
+            },
+            body: JSON.stringify({ userlogin, username, email, is_staff, password })
+        });
+
+        if (!response.ok) {
+            const massage = await response.json().then((data) => {
+                let errName
+                let errLogin
+                let errEmail
+                if (!data['username']) {
+                    errName = ''
+                } else {
+                    errName = String(data['username'])
+                }
+                if (!data['userlogin']) {
+                    errLogin = ''
+                }
+                else {
+                    errLogin = String(data['userlogin'])
+                }
+                if (!data['email']) {
+                    errEmail = ''
+                } else {
+                    errEmail = String(data['email'])
+                }
+
+                const error =
+                    `${errName.replace(/.$/, "!").toUpperCase()} 
+                    ${errLogin.replace(/.$/, "!").toUpperCase()}  
+                    ${errEmail.replace(/.$/, "!").toUpperCase()}`
+
+                return error
+            })
+            throw new Error(massage)
+        }
+
+        const data = await response.json();
+        return data
+    }
+)
 
 export const adminSlice = createSlice({
     name: 'admin',
@@ -64,7 +110,10 @@ export const adminSlice = createSlice({
                 state.users = action.payload;
                 state.loading = false;
             })
-    }      
+            .addCase(createUser.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+    }
 })
 
 export default adminSlice.reducer

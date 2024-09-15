@@ -1,26 +1,33 @@
 from rest_framework import serializers
 from .models import User
 from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 
 
 class ApiUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'userlogin', 'username', 'email', 'password', 'is_staff')
 
-    def update(self, instance, validated_data):
-        instance.userlogin = validated_data.get('userlogin', instance.userlogin)
-        instance.username = validated_data.get('username', instance.username)
-        instance.email = validated_data.get('email', instance.email)
-        instance.password = validated_data.get('password', instance.password)
-        instance.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.userlogin = validated_data.get('userlogin', instance.userlogin)
+    #     instance.username = validated_data.get('username', instance.username)
+    #     instance.email = validated_data.get('email', instance.email)
+    #     instance.password = validated_data.get('password', instance.password)
+    #     instance.save()
+    #     return instance
+
+
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = ['key']
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('userlogin', 'username', 'email', 'is_staff', 'password')
+        fields = ('id', 'userlogin', 'username', 'email', 'is_staff', 'password')
     
     def create(self, clean_data):
         user_obj = User.objects.create_user(

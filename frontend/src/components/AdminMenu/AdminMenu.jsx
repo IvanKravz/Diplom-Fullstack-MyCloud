@@ -1,34 +1,42 @@
 import './AdminMenu.css'
+import '../ModalPopup/ModalPopup.css'
 import { Space, Table, Tag } from 'antd';
-import { LeftCircleOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { LeftCircleOutlined, UserDeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom"
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '../App/hooks';
 import { loadUsers, deleteUser } from '../App/Slices/AdminSlice';
 import { loadFiles } from '../App/Slices/FileSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { AdminCreateUser } from '../AdminCreateUser/AdminCreateUser';
+import { ModalPopup } from '../ModalPopup/ModalPopup';
 
 export const AdminMenu = () => {
-    const userParse = JSON.parse(sessionStorage.getItem('user'));
+    const userParse = JSON.parse(sessionStorage.getItem('user'))?.is_staff;
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { Column, ColumnGroup } = Table;
     const users = useAppSelector(state => state.admin.users);
     const loading = useAppSelector(state => state.admin.loading);
     const files = useAppSelector(state => state.file.files)
+    const [modalActive, setModalActive] = useState(false)
+    const [user, setUser] = useState('')
 
     useEffect(() => {
-        dispatch(loadUsers())
+        dispatch(loadUsers());
         dispatch(loadFiles());
-
-
     }, [])
+
+    const checkUser = (user) => {
+        setUser(user)
+    }
 
     const handleDelete = (user) => {
         dispatch(deleteUser(user.id))
             .then(() => {
                 dispatch(loadUsers());
             })
+        setModalActive(false)
     }
 
     // const handleEdit = (user) => {
@@ -37,11 +45,12 @@ export const AdminMenu = () => {
 
     return (
         <>
-            {userParse.is_staff &&
+            {userParse &&
                 <div className='form'>
                     <LeftCircleOutlined className="header_form" onClick={() => navigate('/mycloud/user')} />
                     <h2 className="header_title">Кабинет администратора</h2>
                     {loading && <div className="card_loading">...Загружается</div>}
+                    <AdminCreateUser />
                     <Table dataSource={users} >
                         {!loading && <ColumnGroup title="Пользователи">
                             <Column title="Логин" dataIndex="userlogin" key="userlogin" />
@@ -87,8 +96,8 @@ export const AdminMenu = () => {
                                             style={{ cursor: 'pointer', fontSize: '18px', color: 'SeaGreen' }}
 
                                         />
-                                        <DeleteOutlined
-                                            onClick={() => handleDelete(user)}
+                                        <UserDeleteOutlined
+                                            onClick={() => { setModalActive(true); checkUser(user) }}
                                             style={{ cursor: 'pointer', fontSize: '18px', color: 'FireBrick' }}
                                         />
                                     </Space>
@@ -98,7 +107,7 @@ export const AdminMenu = () => {
                     </Table>
                 </div>
             }
-            {!userParse.is_staff &&
+            {!userParse &&
                 <>
                     <h2>Необходимо войти в профиль с правами администратора!</h2>
                     <Button
@@ -106,6 +115,8 @@ export const AdminMenu = () => {
                     </Button>
                 </>
             }
+
+            <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDelete={handleDelete} />
         </>
     );
 }
