@@ -12,7 +12,8 @@ import { Loading } from '../Loading/Loading'
 import { DownloadFile } from '../DownloadFile/DownloadFile';
 import { getReadableFileSizeString, getSize } from '../Validations/Validations';
 import { UserEdit } from '../UserEdit/UserEdit';
-
+import { ModalPopup } from '../ModalPopup/ModalPopup';
+import { deleteUser } from '../App/Slices/AdminSlice';
 
 export const UserMenu = () => {
     const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export const UserMenu = () => {
     const error = useAppSelector(state => state.file.error);
     const navigate = useNavigate();
     const [click, setClick] = useState(false);
-
+    const [modalActive, setModalActive] = useState(false)
 
     useEffect(() => {
         dispatch(loadFiles());
@@ -39,6 +40,14 @@ export const UserMenu = () => {
 
     const clickOff = () => {
         setClick(false)
+    }
+
+    const handleDeleteUser = (user) => {
+            dispatch(deleteUser(user.id))
+                .then(() => {
+                    sessionStorage.removeItem('user');
+                    navigate('/mycloud');
+                })
     }
 
     return (
@@ -100,7 +109,7 @@ export const UserMenu = () => {
 
                                 </Card.Body>
                                 {click &&
-                                    <UserEdit clickOff={clickOff} />}
+                                    <UserEdit clickOff={clickOff} setModalActive={setModalActive}/>}
                             </Card>
                             <div className='list_content'>
                                 {files?.map((file) => {
@@ -123,6 +132,7 @@ export const UserMenu = () => {
                     </Button>
                 </>
             }
+            <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />
         </>
     )
 }

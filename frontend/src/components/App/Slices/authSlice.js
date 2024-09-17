@@ -133,10 +133,6 @@ export const userEdit = createAsyncThunk(
             console.log(response)
             throw new Error('Неверные данные')
         }
-
-
-        // const data = await response.json()
-        // return data
     }
 )
 

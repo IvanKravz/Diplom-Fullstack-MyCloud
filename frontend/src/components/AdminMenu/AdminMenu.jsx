@@ -12,7 +12,7 @@ import { AdminCreateUser } from '../AdminCreateUser/AdminCreateUser';
 import { ModalPopup } from '../ModalPopup/ModalPopup';
 
 export const AdminMenu = () => {
-    const userParse = JSON.parse(sessionStorage.getItem('user'))?.is_staff;
+    const userParse = JSON.parse(sessionStorage.getItem('user'));
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { Column, ColumnGroup } = Table;
@@ -28,11 +28,19 @@ export const AdminMenu = () => {
     }, [])
 
     const handleDeleteUser = (user) => {
-        dispatch(deleteUser(user.id))
-            .then(() => {
-                dispatch(loadUsers());
-            })
-        setModalActive(false)
+        if (user.id === userParse.id) {
+            dispatch(deleteUser(user.id))
+                .then(() => {
+                    sessionStorage.removeItem('user');
+                    navigate('/mycloud');
+                })
+        } else {
+            dispatch(deleteUser(user.id))
+                .then(() => {
+                    dispatch(loadUsers());
+                })
+            setModalActive(false)
+        }
     }
 
     // const handleEdit = (user) => {
@@ -41,7 +49,7 @@ export const AdminMenu = () => {
 
     return (
         <>
-            {userParse &&
+            {userParse.is_staff &&
                 <div className='form'>
                     <LeftCircleOutlined className="header_form" onClick={() => navigate('/mycloud/user')} />
                     <h2 className="header_title">Кабинет администратора</h2>
@@ -103,7 +111,7 @@ export const AdminMenu = () => {
                     </Table>
                 </div>
             }
-            {!userParse &&
+            {!userParse.is_staff &&
                 <>
                     <h2>Необходимо войти в профиль с правами администратора!</h2>
                     <Button
