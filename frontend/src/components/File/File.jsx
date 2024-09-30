@@ -76,48 +76,41 @@ export const File = ({ fileItem, fileSize }) => {
         <>
             <Card className='card_file'>
                 <div className='card_img'>
-                    {!click &&
-                        <>
-                            {filename}
-                        </>
-                    }
+                    {!click && filename}
                     {click &&
-                        <>
-                            <Input className='input_update_file'
-                                label='Имя файла'
-                                allowClear
-                                required
-                                // value={filename}
-                                onChange={(e) => setNewFilename(e.target.value)}
-                            >
-                            </Input>
-                        </>
+                        <Input
+                            className='input_update_file'
+                            label='Имя файла'
+                            allowClear
+                            required
+                            // value={filename}
+                            onChange={(e) => setNewFilename(e.target.value)} >
+                        </Input>
                     }
                     <a href={file}>
-                        {isValid && <Card.Img className='card_file_img'
-                            variant="top"
-                            src={link}
-                        />}
-                        {!isValid && <Card.Img className='card_file_img'
-                            variant="top"
-                            src={require('../../assets/notFoto.jpg')}
-                        />}
+                        {isValid &&
+                            <Card.Img
+                                className='card_file_img'
+                                variant="top"
+                                src={link} />}
+                        {!isValid &&
+                            <Card.Img
+                                className='card_file_img'
+                                variant="top"
+                                src={require('../../assets/notFoto.jpg')} />}
                     </a>
                 </div>
                 <Card.Body className='card_text_file'>
                     <Card.Text>Размер файла: {fileSize({ size })}</Card.Text>
                     <Card.Text>Дата загрузки файла: {upload_time}</Card.Text>
                     <Card.Text>Дата последнего скачивания: {downloadTime} (МСК)</Card.Text>
-
-                    {!clickComments && <Card.Text
-                        className='card_text_comment'
-                        onClick={() => {
-                            setClickComments(true);
-                            setNewDescription(description)
-                        }
-                        }>
-                        Комментарий: {description}
-                    </Card.Text>
+                    {!clickComments &&
+                        <Card.Text
+                            className='card_text_comment'
+                            onClick={() => { setClickComments(true); setNewDescription(description) }
+                            }>
+                            Комментарий: {description}
+                        </Card.Text>
                     }
                     {clickComments &&
                         <>
@@ -135,18 +128,11 @@ export const File = ({ fileItem, fileSize }) => {
 
                             </Card.Text>
                             <div className='btn_comments'>
-                                <Button
-                                    onClick={() => handleUpdateFileDescription({ id, newDescription })}
-                                >&#x2713;
-                                </Button>
-                                <Button
-                                    onClick={() => setClickComments(false)}
-                                >&#x2715;
-                                </Button>
+                                <Button onClick={() => handleUpdateFileDescription({ id, newDescription })}>&#x2713;</Button>
+                                <Button onClick={() => setClickComments(false)}>&#x2715;</Button>
                             </div>
                         </>
                     }
-
                 </Card.Body>
                 <div className='btn_card_file'>
                     <Button
@@ -157,34 +143,18 @@ export const File = ({ fileItem, fileSize }) => {
                     </Button>
                     <Button
                         variant="primary"
-                        // onClick={() => submitDelete(id)}
                         onClick={() => { setModalActive(true); setFileDelete(fileItem) }}
                     >Удалить &#128465;
                     </Button>
-                    {!click &&
-                        <Button
-                            variant="primary"
-                            onClick={() => setClick(true)}
-                        >Переименовать &#128396;
-                        </Button>
-                    }
+                    {!click && <Button variant="primary" onClick={() => setClick(true)}>Переименовать &#128396;</Button>}
                     {click &&
                         <>
-                            <Button
-                                variant="primary"
-                                onClick={() => handleUpdateFileName({ id, newFileName })}
-                            >ОК
-                            </Button>
-                            <Button
-                                variant="primary"
-                                onClick={() => setClick(false)}
-                            >Отмена
-                            </Button>
+                            <Button variant="primary" onClick={() => handleUpdateFileName({ id, newFileName })}>ОК </Button>
+                            <Button variant="primary" onClick={() => setClick(false)}>Отмена </Button>
                         </>
                     }
                 </div>
             </Card>
-
             <ModalPopup active={modalActive} setModalActive={setModalActive} fileDelete={fileDelete} handleDeleteFile={handleDeleteFile} />
         </>
     )

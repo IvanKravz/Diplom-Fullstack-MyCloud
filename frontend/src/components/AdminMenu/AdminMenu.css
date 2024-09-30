@@ -1,0 +1,30 @@
+.folder_open_filed {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.folder_open_filed:hover {
+    color: rgb(80, 187, 217);
+    font-size: 20px;
+    transition: 0.4s;
+}
+
+.edit_outlined {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.edit_outlined:hover {
+    color: SeaGreen;
+    transition: 0.4s;
+}
+
+.user_delete_outlined {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.user_delete_outlined:hover {
+    color: FireBrick;
+    transition: 0.4s;
+}

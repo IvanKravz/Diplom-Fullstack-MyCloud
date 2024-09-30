@@ -2,8 +2,8 @@ import './AdminCreateUser.css'
 import { Form, Input, Select } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import { createUser, loadUsers } from '../App/Slices/AdminSlice';
-import { loginValidate, passwordValidate } from '../Validations/Validations'
+import { createUser } from '../App/Slices/AdminSlice';
+import { regexLogin, regexPassword, regexEmail, loginText, loginPassword, loginEmail} from '../Validations/Validations'
 import { useAppDispatch, useAppSelector } from '../App/hooks';
 
 export const AdminCreateUser = () => {
@@ -13,16 +13,35 @@ export const AdminCreateUser = () => {
     const [email, setEmail] = useState('');
     const [is_staff, setStaff] = useState(false);
     const [password, setPassword] = useState('');
+    const [errInput, setErrorInput] = useState('');
     const error = useAppSelector(state => state.admin.error);
     const options = [
         { label: 'Пользователь', value: false },
         { label: 'Администратор', value: true },
     ];
-
+    
     const submitCreateUser = async () => {
-        const response = await dispatch(createUser({ userlogin, username, email, is_staff, password }))
-        if (createUser.fulfilled.match(response)) {
-            location.reload();
+        let notLogin
+        let notPassword
+        if (regexLogin.test(userlogin) && regexPassword.test(password)) {
+            const response = await dispatch(createUser({ userlogin, username, email, is_staff, password }))
+            if (createUser.fulfilled.match(response)) {
+                location.reload();
+            }
+        }
+        if (!regexLogin.test(userlogin)) {
+            notLogin = `Логин: ${loginText}`
+            setErrorInput(notLogin)
+        }
+        if (!regexPassword.test(password)) {
+            notPassword = `Пароль: ${loginPassword}`
+            setErrorInput(notPassword)
+        } 
+        if (!regexEmail.test(email)) {
+            setErrorInput(loginEmail)
+        } 
+        if (!username) {
+            setErrorInput('Введите имя пользователя')
         }
     }
 
@@ -32,15 +51,16 @@ export const AdminCreateUser = () => {
 
     return (
         <>
-            {error}
+            {errInput && errInput}
+            {error && error}
+            {}
             <Form className='input_create_form'>
                 <Form.Item
                     className='form_input_item'
                     name="InputLogin"
                     rules={[{ required: true, message: 'Введите логин!' }]}>
                     <Input
-                        title="Разрешены латинские буквы и цифры, первый символ — буква, длина от 4 до 20 символов"
-                        pattern={loginValidate}
+                        title={loginText}
                         allowClear
                         value={userlogin}
                         onChange={(e) => setUserLogin(e.target.value)}
@@ -91,8 +111,7 @@ export const AdminCreateUser = () => {
                     rules={[{ required: true, message: 'Введите пароль!' }]}
                 >
                     <Input
-                        title="Разрешено не менее 6 символов: как минимум одна заглавная буква, одна цифра и один специальный символ"
-                        pattern={passwordValidate}
+                        title={loginPassword}
                         allowClear
                         placeholder="Пароль"
                         value={password}

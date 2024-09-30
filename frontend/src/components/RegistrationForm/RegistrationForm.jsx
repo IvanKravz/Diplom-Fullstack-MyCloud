@@ -15,7 +15,6 @@ export const RegistrationForm = () => {
     const [email, setEmail] = useState('');
     const [is_staff, setStaff] = useState(false);
     const [password, setPassword] = useState('');
-
     const options = [
         { label: 'Пользователь', value: false },
         { label: 'Администратор', value: true },
@@ -31,10 +30,6 @@ export const RegistrationForm = () => {
             await dispatch(login({ username, password }))
             navigate('/mycloud')
         }
-    }
-
-    const handleSelect = (event) => {
-        setStaff(event)
     }
 
     return (
@@ -89,7 +84,7 @@ export const RegistrationForm = () => {
                     <Select
                         options={options}
                         placeholder="Выбрать пользователя"
-                        onChange={handleSelect}>
+                        onChange={(event) => setStaff(event)}>
                     </Select>
 
                 </Form.Item>
@@ -108,12 +103,6 @@ export const RegistrationForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Item>
-
-                {/* <Form.Item >
-                    <Upload  name="logo" action="/upload.do" listType="picture">
-                        <Button icon={<UploadOutlined />}>Загрузить фото</Button>
-                    </Upload>
-                </Form.Item> */}
 
                 <Form.Item>
                     <Button

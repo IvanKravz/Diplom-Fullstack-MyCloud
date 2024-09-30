@@ -16,7 +16,7 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
           <>
             <h3>Действительно вы хотите удалить пользователя {user.username}? </h3>
             <div className='btn_edit_user'>
-              <Button
+              <Button className='btn_modal'
                 onClick={() => handleDeleteUser(user)}
               >Да
               </Button>
@@ -32,7 +32,7 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
           <>
             <h3>Действительно вы хотите удалить файл {fileDelete.filename}? </h3>
             <div className='btn_edit_user'>
-              <Button
+              <Button className='btn_modal'
                 onClick={() => handleDeleteFile(fileDelete)}
               >Да
               </Button>
@@ -47,7 +47,7 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
           <>
             <h3>Вы действительно хотите удалить самого себя! </h3>
             <div className='btn_edit_user'>
-              <Button
+              <Button className='btn_modal'
                 onClick={() => handleDeleteUser(user)}
               >Да
               </Button>

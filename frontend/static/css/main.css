@@ -134,10 +134,99 @@
 /*!******************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminMenu/AdminMenu.css ***!
   \******************************************************************************************/
+.folder_open_filed {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.folder_open_filed:hover {
+    color: rgb(80, 187, 217);
+    font-size: 20px;
+    transition: 0.4s;
+}
+
+.edit_outlined {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.edit_outlined:hover {
+    color: SeaGreen;
+    transition: 0.4s;
+}
+
+.user_delete_outlined {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.user_delete_outlined:hover {
+    color: FireBrick;
+    transition: 0.4s;
+}
 
 /*!********************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopup/ModalPopup.css ***!
   \********************************************************************************************/
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    transform: scale(0.5);
+    transition: 0.4s all;
+}
+
+.modal_content.active {
+    transform: scale(1);
+}
+
+.btn_modal {
+    margin: 5px;
+}
+/*!******************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminCreateUser/AdminCreateUser.css ***!
+  \******************************************************************************************************/
+.input_create_form {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+}
+
+.form_input_item {
+    width: 200px;
+}
+
+.btn_create_user {
+    cursor: pointer;
+    color: SeaGreen;
+    font-size: 23px;
+}
+/*!************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopupEditUser/ModalPopupEditUser.css ***!
+  \************************************************************************************************************/
 .modal {
     width: 100vw;
     height: 100vh;
@@ -169,25 +258,34 @@
 .modal_content.active {
     transform: scale(1);
 }
-/*!******************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminCreateUser/AdminCreateUser.css ***!
-  \******************************************************************************************************/
-.input_create_form {
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 0 auto;
+
+.btn_modal {
+    margin: 5px;
 }
 
-.form_input_item {
-    width: 200px;
+.btn_ok_edit  {
+    transform: scale(0);
+    transition: 0.3s all;
 }
 
-.btn_create_user {
-    cursor: pointer;
-    color: SeaGreen;
-    font-size: 23px;
+.btn_ok_edit.active {
+    transform: scale(1);
+}
+
+.modal_cloud_image {
+    width: 40px;
+    height: 35px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.icon_change_ok {
+    color: green;
+    font-size: 20px;
+    position: absolute;
+    right: 5px;
+    top: 6px;
 }
 /*!****************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/UserMenu/UserMenu.css ***!
@@ -308,9 +406,8 @@
 }
 
 .btn_edit_user {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -319,6 +416,17 @@
     border-color: #f13a0f;
 }
 
+.ant-form-item-control-input-content {
+    display: flex;
+    width: 100%;
+    line-height: 100%;
+    justify-content: center;
+    gap: 5px;
+}
+
+.input_form {
+    transition: 0.4s;
+}
 /*!********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/File/File.css ***!
   \********************************************************************************/
@@ -334,6 +442,7 @@
 
 .btn_card_file {
     min-width: 140px;
+    z-index: 0;
 }
 
 .btn_upload {

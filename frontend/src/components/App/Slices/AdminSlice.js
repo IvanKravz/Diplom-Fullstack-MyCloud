@@ -50,14 +50,14 @@ export const deleteUser = createAsyncThunk(
 
 export const createUser = createAsyncThunk(
     'admin/createUser',
-    async ({ userlogin, username, email, is_staff, password }) => {
+    async ({ userlogin, username, email, is_staff, password, files=[] }) => {
         const response = await fetch(`http://127.0.0.1:8000/api/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
             },
-            body: JSON.stringify({ userlogin, username, email, is_staff, password })
+            body: JSON.stringify({ userlogin, username, email, is_staff, password, files })
         });
 
         if (!response.ok) {

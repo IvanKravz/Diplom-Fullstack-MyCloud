@@ -114,13 +114,24 @@
 }
 
 .btn_edit_user {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
     gap: 10px;
 }
 
 .btn_delete_user:hover {
     color: #f13a0f;
     border-color: #f13a0f;
+}
+
+.ant-form-item-control-input-content {
+    display: flex;
+    width: 100%;
+    line-height: 100%;
+    justify-content: center;
+    gap: 5px;
+}
+
+.input_form {
+    transition: 0.4s;
 }

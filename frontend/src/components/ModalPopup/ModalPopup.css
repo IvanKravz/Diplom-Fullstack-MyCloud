@@ -11,6 +11,7 @@
     opacity: 0;
     pointer-events: none;
     transition: 0.5s;
+    z-index: 1;
 }
 
 .modal.active {
@@ -28,4 +29,8 @@
 
 .modal_content.active {
     transform: scale(1);
+}
+
+.btn_modal {
+    margin: 5px;
 }

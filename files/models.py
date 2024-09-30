@@ -29,7 +29,7 @@ class File(models.Model):
     link = models.CharField(null=True, default='')
     upload_time = models.DateTimeField(verbose_name='Время загрузки', auto_now_add=True)
     downloadTime = models.CharField(default='', null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="files")
     
 
     def save(self, *args, **kwargs):

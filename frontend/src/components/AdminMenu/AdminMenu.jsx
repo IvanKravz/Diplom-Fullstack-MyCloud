@@ -1,26 +1,30 @@
 import './AdminMenu.css'
 import '../ModalPopup/ModalPopup.css'
-import { Space, Table, Tag } from 'antd';
-import { LeftCircleOutlined, UserDeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Space, Table, Tag, Button} from 'antd';
+import { LeftCircleOutlined, UserDeleteOutlined, EditOutlined, FolderOpenFilled } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom"
-import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '../App/hooks';
 import { loadUsers, deleteUser } from '../App/Slices/AdminSlice';
 import { loadFiles } from '../App/Slices/FileSlice';
 import { useEffect, useState } from 'react';
 import { AdminCreateUser } from '../AdminCreateUser/AdminCreateUser';
 import { ModalPopup } from '../ModalPopup/ModalPopup';
+import { ModalPopupEditUser } from '../ModalPopupEditUser/ModalPopupEditUser';
+// import { AdminEditFilesUser } from '../AdminEditFilesUser/AdminEditFilesUser';
 
 export const AdminMenu = () => {
+
     const userParse = JSON.parse(sessionStorage.getItem('user'));
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { Column, ColumnGroup } = Table;
     const users = useAppSelector(state => state.admin.users);
     const loading = useAppSelector(state => state.admin.loading);
-    const files = useAppSelector(state => state.file.files)
-    const [modalActive, setModalActive] = useState(false)
-    const [user, setUser] = useState('')
+    const [modalActive, setModalActive] = useState(false);
+    const [user, setUser] = useState('');
+    const [files, setFiles] = useState([]);
+    const [activeFile, setActiveFile] = useState(false);
+    const [modalEditActive, setModalEditActive] = useState(false);
 
     useEffect(() => {
         dispatch(loadUsers());
@@ -42,14 +46,11 @@ export const AdminMenu = () => {
             setModalActive(false)
         }
     }
-
-    // const handleEdit = (user) => {
-    //     console.log('handleEdit', user.id)
-    // }
-
+    
+    console.log(users)
     return (
         <>
-            {userParse.is_staff &&
+            {userParse?.is_staff &&
                 <div className='form'>
                     <LeftCircleOutlined className="header_form" onClick={() => navigate('/mycloud/user')} />
                     <h2 className="header_title">Кабинет администратора</h2>
@@ -80,29 +81,33 @@ export const AdminMenu = () => {
                             />
                             <Column
                                 title="Количество файлов"
-                                // dataIndex="fileLength" 
-                                key="fileLength"
-                                render={(record) => (
-                                    <Space size="middle">
-                                        {record.fileLength}
-                                        <a>Просмотр файлов</a>
-                                    </Space>
-                                )}
+                                dataIndex="files"
+                                key="files"
+                                render={(files) => {
+                                    // console.log(files)
+                                    let len = files.length;
+                                    return (
+                                        <Space size='large'>
+                                            {len}
+                                            <FolderOpenFilled 
+                                                className='folder_open_filed'
+                                                onClick={() => { setActiveFile(true); setFiles(files) }}/>
+                                        </Space>
+                                    )
+                                }}
                             />
-                            <Column title="Размер файлов" dataIndex="fileSize" key="fileSize" />
                             <Column
                                 title="Действия"
                                 key="action"
                                 render={(user) => (
-                                    <Space size="middle">
+                                    <Space size="middle" >
                                         <EditOutlined
-                                            // onClick={() => handleEdit(user)}
-                                            style={{ cursor: 'pointer', fontSize: '18px', color: 'SeaGreen' }}
-
+                                            className='edit_outlined'
+                                            onClick={() => { setModalEditActive(true); setUser(user) }}
                                         />
                                         <UserDeleteOutlined
+                                            className='user_delete_outlined'
                                             onClick={() => { setModalActive(true); setUser(user) }}
-                                            style={{ cursor: 'pointer', fontSize: '18px', color: 'FireBrick' }}
                                         />
                                     </Space>
                                 )}
@@ -111,7 +116,7 @@ export const AdminMenu = () => {
                     </Table>
                 </div>
             }
-            {!userParse.is_staff &&
+            {!userParse?.is_staff &&
                 <>
                     <h2>Необходимо войти в профиль с правами администратора!</h2>
                     <Button
@@ -120,7 +125,9 @@ export const AdminMenu = () => {
                 </>
             }
 
-            <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />
+            {<ModalPopupEditUser active={modalEditActive} setModalActive={setModalEditActive} user={user} />}
+            {userParse && <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />}
+            {/* {<AdminEditFilesUser files={files} />} */}
         </>
     );
 }

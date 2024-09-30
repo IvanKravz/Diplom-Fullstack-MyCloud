@@ -2,19 +2,19 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions, status
 from .serializers import ApiFileSerializers
 from .models import File
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 
 class ApiFileViewSet(viewsets.ModelViewSet):
     queryset = File.objects.all()
     
-    permission_classes = [
-        permissions.IsAuthenticated
-    ] 
+    # permission_classes = [
+    #     permissions.IsAuthenticated
+    # ] 
 
-    authentication_classes = ([
-        SessionAuthentication
-    ])
+    # authentication_classes = ([
+    #     TokenAuthentication
+    # ])
     
     serializer_class = ApiFileSerializers
 

@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from rest_framework.views import APIView
 from .validations import custom_validation
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from django.shortcuts import render
 
@@ -14,23 +14,25 @@ from .serializers import ApiUserSerializers, TokenSerializer, UserRegisterSerial
 class ApiUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = ApiUserSerializers
-    
-    
+
+    def perform_create(self, serializer):
+        print('self.request.user', self.request.user)
+        serializer.save(files=self.request.user)
+
     # permission_classes = [
     #     permissions.IsAuthenticated
     # ]
     
     # authentication_classes = ([
-    #     SessionAuthentication
+    #     TokenAuthentication
     # ])
 
-    # def perform_create(self, serializer):
-    #     print('serializer', serializer)
-    #     serializer.save()
-
-
     # def partial_update(self, request, *args, **kwargs): 
+    #     serializer = self.get_serializer(data=request.data)
+    #     print ('serializer', serializer)
+
     #     isinstance = self.get_serializer()
+    #     print('isinstance', isinstance)
     #     serializer = ApiUserSerializers(isinstance, data=request.data, partial=True)
     #     if not serializer.is_valid():
     #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

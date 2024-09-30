@@ -43,11 +43,11 @@ export const UserMenu = () => {
     }
 
     const handleDeleteUser = (user) => {
-            dispatch(deleteUser(user.id))
-                .then(() => {
-                    sessionStorage.removeItem('user');
-                    navigate('/mycloud');
-                })
+        dispatch(deleteUser(user.id))
+            .then(() => {
+                sessionStorage.removeItem('user');
+                navigate('/mycloud');
+            })
     }
 
     return (
@@ -101,15 +101,9 @@ export const UserMenu = () => {
                                     <div>Почта: {user.email}</div>
                                     <div>Количество файлов: {filesUser.length}</div>
                                     <div>Общий размер файлов: {getSize(filesUser)}</div>
-                                    {!click && <Button
-                                        variant="primary"
-                                        onClick={() => setClick(true)}
-                                    >Редактировать профиль
-                                    </Button>}
-
+                                    {!click && <Button variant="primary" onClick={() => setClick(true)}>Редактировать профиль </Button>}
                                 </Card.Body>
-                                {click &&
-                                    <UserEdit clickOff={clickOff} setModalActive={setModalActive}/>}
+                                {click && <UserEdit clickOff={clickOff} setModalActive={setModalActive} user={user} />}
                             </Card>
                             <div className='list_content'>
                                 {files?.map((file) => {
@@ -127,12 +121,10 @@ export const UserMenu = () => {
             {!userParse &&
                 <>
                     <h2>Необходимо войти в профиль!</h2>
-                    <Button
-                        size="md" onClick={() => navigate('/mycloud/login')}>Войти
-                    </Button>
+                    <Button size="md" onClick={() => navigate('/mycloud/login')}>Войти </Button>
                 </>
             }
-            <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />
+            {<ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />}
         </>
     )
 }

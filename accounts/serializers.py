@@ -1,21 +1,37 @@
 from rest_framework import serializers
+from files.models import File
 from .models import User
 from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import make_password
 from rest_framework.authtoken.models import Token
 
 
+class FilesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = ('id', 'filename', 'description', 'size', 'link', 'upload_time', 'downloadTime')
+
 class ApiUserSerializers(serializers.ModelSerializer):
+    files = FilesSerializer(read_only=True)
+    
     class Meta:
         model = User
-        fields = ('id', 'userlogin', 'username', 'email', 'password', 'is_staff')
+        fields = ('id', 'userlogin', 'username', 'email', 'password', 'is_staff', 'files')
 
-    # def update(self, instance, validated_data):
-    #     instance.userlogin = validated_data.get('userlogin', instance.userlogin)
-    #     instance.username = validated_data.get('username', instance.username)
-    #     instance.email = validated_data.get('email', instance.email)
-    #     instance.password = validated_data.get('password', instance.password)
-    #     instance.save()
-    #     return instance
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(validated_data['password'])
+        return super().update(instance, validated_data)   
+
+    def create(self, validated_data):
+        user_obj = User.objects.create_user(
+            userlogin=validated_data['userlogin'],
+            username=validated_data['username'],
+            email=validated_data['email'],
+            is_staff=validated_data['is_staff'],
+            password=make_password(validated_data['password'])
+        )
+        return user_obj
 
 
 class TokenSerializer(serializers.ModelSerializer):
@@ -29,13 +45,13 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'userlogin', 'username', 'email', 'is_staff', 'password')
     
-    def create(self, clean_data):
+    def create(self, validated_data):
         user_obj = User.objects.create_user(
-            userlogin=clean_data['userlogin'],
-            username=clean_data['username'],
-            email=clean_data['email'],
-            is_staff=clean_data['is_staff'],
-            password=clean_data['password']
+            userlogin=validated_data['userlogin'],
+            username=validated_data['username'],
+            email=validated_data['email'],
+            is_staff=validated_data['is_staff'],
+            password=validated_data['password']
         )
         return user_obj
 

@@ -111,10 +111,10 @@ export const getUser = createAsyncThunk(
     }
 );
 
-export const userEdit = createAsyncThunk(
-    'auth/userEdit',
-    async ({ userlogin, username, email, password }) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${JSON.parse(sessionStorage.getItem('user')).id}/`, {
+export const userEditName = createAsyncThunk(
+    'auth/userEditName',
+    async ({ id, username}) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
@@ -122,9 +122,72 @@ export const userEdit = createAsyncThunk(
                 'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
             },
             body: JSON.stringify({
-                userlogin,
-                username,
-                email,
+                username
+            }),
+        })
+
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Неверные данные')
+        }
+    }
+)
+
+export const userEditLogin = createAsyncThunk(
+    'auth/userEditLogin',
+    async ({ id, userlogin}) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+            credentials: 'include',
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
+            },
+            body: JSON.stringify({
+                userlogin
+            }),
+        })
+
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Неверные данные')
+        }
+    }
+)
+
+export const userEditEmail = createAsyncThunk(
+    'auth/userEditEmail',
+    async ({ id, email}) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+            credentials: 'include',
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
+            },
+            body: JSON.stringify({
+                email
+            }),
+        })
+
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Неверные данные')
+        }
+    }
+)
+
+export const userEditPassword = createAsyncThunk(
+    'auth/userEditPassword',
+    async ({ id, password}) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+            credentials: 'include',
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
+            },
+            body: JSON.stringify({
                 password
             }),
         })
@@ -136,6 +199,27 @@ export const userEdit = createAsyncThunk(
     }
 )
 
+export const userEditStaff = createAsyncThunk(
+    'auth/userEdit',
+    async ({ id, is_staff }) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+            credentials: 'include',
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
+            },
+            body: JSON.stringify({
+                is_staff
+            }),
+        })
+
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Неверные данные')
+        }
+    }
+)
 
 export const authSlice = createSlice({
     name: 'auth',
