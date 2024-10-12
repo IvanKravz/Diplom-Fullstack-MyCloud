@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCookie } from 'react-use-cookie';
 
 const initialFileState = {
     files: [],
@@ -35,13 +34,12 @@ export const deleteFile = createAsyncThunk(
     'file/deleteFile',
     async (id) => {
         try {
-            var csrftoken = getCookie('csrftoken');
             const response = await fetch(`http://127.0.0.1:8000/api/files/${id}`, {
                 credentials: 'include',
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrftoken
+                    'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
                 },
             })
 
@@ -60,10 +58,9 @@ export const uploadFile = createAsyncThunk(
     'file/uploadFile',
     async (formData) => {
         try {
-            var csrftoken = getCookie('csrftoken');
             const response = await fetch(`http://127.0.0.1:8000/api/files/`, {
                 headers: {
-                    'X-CSRFToken': csrftoken,
+                    'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
                 },
                 method: 'POST',
                 body: formData,
@@ -82,11 +79,10 @@ export const uploadFile = createAsyncThunk(
 export const updateFile = createAsyncThunk(
     'file/updateFile',
     async ({ id, newFileName, newDescription, dateDownload }) => {
-            var csrftoken = getCookie('csrftoken');
             const response = await fetch(`http://127.0.0.1:8000/api/files/${id}/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrftoken,
+                    'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
                 },
                 method: 'PATCH',
                 body: JSON.stringify({ filename: newFileName, description: newDescription, downloadTime: dateDownload }),
