@@ -136,12 +136,14 @@
   \******************************************************************************************/
 .folder_open_filed {
     cursor: pointer;
-    font-size: 18px;
+    width: 22px;
+    height: 20px;
+    display: flex;
 }
 
 .folder_open_filed:hover {
-    color: rgb(80, 187, 217);
-    font-size: 20px;
+    width: 25px;
+    height: 23px;
     transition: 0.4s;
 }
 
@@ -165,6 +167,14 @@
     transition: 0.4s;
 }
 
+.admin_menu_auth_smile {
+    font-size: 30px;
+}
+
+.ant-table-cell {
+    word-break: break-all;
+    max-width: 150px;
+}
 /*!********************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopup/ModalPopup.css ***!
   \********************************************************************************************/
@@ -195,6 +205,7 @@
     background-color: white;
     transform: scale(0.5);
     transition: 0.4s all;
+    text-align: center;
 }
 
 .modal_content.active {
@@ -203,6 +214,15 @@
 
 .btn_modal {
     margin: 5px;
+}
+
+.btn_edit_file {
+    text-align: center;
+}
+
+.icon_warning {
+    color: #e64c12;
+    font-size: 23px;
 }
 /*!******************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminCreateUser/AdminCreateUser.css ***!
@@ -227,6 +247,69 @@
 /*!************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopupEditUser/ModalPopupEditUser.css ***!
   \************************************************************************************************************/
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    transform: scale(0.5);
+    transition: 0.4s all;
+}
+
+.modal_content.active {
+    transform: scale(1);
+}
+
+.btn_modal {
+    margin: 5px;
+}
+
+.btn_ok_edit  {
+    transform: scale(0);
+    transition: 0.3s all;
+}
+
+.btn_ok_edit.active {
+    transform: scale(1);
+}
+
+.modal_cloud_image {
+    width: 40px;
+    height: 35px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.icon_change_ok {
+    color: green;
+    font-size: 20px;
+    position: absolute;
+    right: 5px;
+    top: 6px;
+}
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopupEditFilesAdmin/ModalPopupEditFilesAdmin.css ***!
+  \************************************************************************************************************************/
 .modal {
     width: 100vw;
     height: 100vh;
@@ -361,7 +444,6 @@
     padding: 10px;
     background-color: rgb(236, 248, 254);
     border-radius: 8px;
-    margin-bottom: 10px;
     display: flex; 
     text-align: left;
     height: max-content;
@@ -369,16 +451,9 @@
     justify-content: space-between;
 }
 
-.card_text_file {
-    text-align: left;
-    color: rgb(9, 27, 78);
-    overflow-wrap: break-word;
-    margin-top: 20px;
-}
-
 .card_file_img {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     cursor: pointer;
 }
 
@@ -397,6 +472,8 @@
 
 .card-text, .card-title {
     margin: 0 0 5px 10px;
+    padding: 3px;
+    word-break: break-all;
 }
 
 .card_img {
@@ -427,17 +504,25 @@
 .input_form {
     transition: 0.4s;
 }
+
+.cards_file {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.user_menu_auth_smile {
+    font-size: 30px;
+}
+
 /*!********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/File/File.css ***!
   \********************************************************************************/
 .card_text_file {
     display: flex;
-    flex-direction: column;
     width: 100%;
-}
-
-.card_text {
-    margin: 0;
+    flex-wrap: wrap;
 }
 
 .btn_card_file {
@@ -450,9 +535,12 @@
 }
 
 .input_update_file {
-    width: 100px;
-    height: 25px;
+    display: flex;
+    width: 20%;
+    height: 30px;
     margin-bottom: 5px;
+    background-color: #c6ebe7;
+    border: 1.5px solid #5196b0;
 }
 
 .input_text_file {
@@ -464,6 +552,11 @@
     justify-content: center;
     gap: 5px;
 }
+
+.card_info {
+    display: contents;
+}
+
 /*!************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/DownloadFile/DownloadFile.css ***!
   \************************************************************************************************/

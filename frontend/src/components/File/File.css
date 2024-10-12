@@ -1,11 +1,7 @@
 .card_text_file {
     display: flex;
-    flex-direction: column;
     width: 100%;
-}
-
-.card_text {
-    margin: 0;
+    flex-wrap: wrap;
 }
 
 .btn_card_file {
@@ -18,9 +14,12 @@
 }
 
 .input_update_file {
-    width: 100px;
-    height: 25px;
+    display: flex;
+    width: 20%;
+    height: 30px;
     margin-bottom: 5px;
+    background-color: #c6ebe7;
+    border: 1.5px solid #5196b0;
 }
 
 .input_text_file {
@@ -31,4 +30,8 @@
     display: flex;
     justify-content: center;
     gap: 5px;
+}
+
+.card_info {
+    display: contents;
 }

@@ -1,68 +1,74 @@
 import React from 'react'
+import { Table, Space } from 'antd';
+import { getReadableFileSizeString } from '../Validations/Validations';
+import { FileExcelFilled, EditFilled } from '@ant-design/icons';
+import { deleteFile } from '../App/Slices/FileSlice';
+import { useAppDispatch } from '../App/hooks'
+import { useState } from 'react';
+import { ModalPopup } from '../ModalPopup/ModalPopup';
+import { ModalPopupEditFilesAdmin } from '../ModalPopupEditFilesAdmin/ModalPopupEditFilesAdmin';
 
-export const AdminEditFilesUser = () => {
+export const AdminEditFilesUser = ({ files, user }) => {
+    const { Column } = Table;
+    const dispatch = useAppDispatch();
+    const [modalActive, setModalActive] = useState(false);
+    const [file, setFile] = useState('');
+    const [modalEditActive, setModalEditActive] = useState(false);
+
+    const handleDeleteFile = (file) => {
+        dispatch(deleteFile(file.id))
+            .then(() => {
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+            });
+    }
+
     return (
-        <div className='form'>
-            <LeftCircleOutlined className="header_form" onClick={() => navigate('/mycloud/user')} />
-            <h2 className="header_title">Кабинет администратора</h2>
-            {loading && <div className="card_loading">...Загружается</div>}
-            <AdminCreateUser />
-            <Table dataSource={users} >
-                {!loading && <ColumnGroup title="Пользователи">
-                    <Column title="Логин" dataIndex="userlogin" key="userlogin" />
-                    <Column title="Имя" dataIndex="username" key="username" />
-                    <Column title="Email" dataIndex="email" key="email" />
-                    <Column
-                        title="Права пользователя"
-                        dataIndex="is_staff"
-                        key="is_staff"
-                        render={(is_staff) => {
-                            let color = 'volcano';
-                            let name = 'Администратор';
-                            if (is_staff === false) {
-                                color = 'green';
-                                name = 'Пользователь'
-                            }
-                            return (
-                                <Tag color={color}>
-                                    {name}
-                                </Tag>
-                            )
-                        }}
-                    />
-                    <Column
-                        title="Количество файлов"
-                        dataIndex="files"
-                        key="files"
-                        render={(files) => {
-                            let len = files.length;
-                            return (
-
-                                <Space size='large'>
-                                    {len}
-                                    <FolderOpenFilled className='folder_open_filed' />
-                                </Space>
-                            )
-                        }}
-                    />
-                    <Column
-                        title="Действия"
-                        key="action"
-                        render={(user) => (
-                            <Space size="middle" >
-                                <EditOutlined
-                                    className='edit_outlined'
-                                    onClick={() => { setModalEditActive(true); setUser(user) }}
-                                />
-                                <UserDeleteOutlined
-                                    className='user_delete_outlined'
-                                    onClick={() => { setModalActive(true); setUser(user) }}
-                                />
-                            </Space>
-                        )}
-                    />
-                </ColumnGroup>}
+        <div className='form_file'>
+            {user && <h4>Файлы пользователя {user.username}</h4>}
+            <Table dataSource={files}>
+                <Column title="Имя файла" dataIndex="filename" key="filename" />
+                <Column title="Комментарий" dataIndex="description" key="description" />
+                <Column
+                    title="Размер"
+                    render={(file) => (
+                        <Space size="middle" >
+                            {getReadableFileSizeString(file.size)}
+                        </Space>
+                    )}
+                />
+                <Column title="Время загрузки в облако" dataIndex="upload_time" key="upload_time" />
+                <Column title="Время скачивания" dataIndex="downloadTime" key="downloadTime" />
+                <Column
+                    title="Ссылка"
+                    dataIndex="link"
+                    key="link"
+                    render={(link) => (
+                        <Space size="middle" >
+                            <a href={link}>{link}</a>
+                        </Space>
+                    )}
+                />
+                <Column
+                    title="Действия"
+                    render={(file) => (
+                        <Space size="middle" >
+                            <EditFilled
+                                className='edit_outlined'
+                                onClick={() => { setModalEditActive(true); setFile(file) }}
+                            />
+                            <FileExcelFilled
+                                className='user_delete_outlined'
+                                onClick={() => { setModalActive(true); setFile(file) }}
+                            />
+                        </Space>
+                    )}
+                />
             </Table>
+            <ModalPopup active={modalActive} setModalActive={setModalActive} fileDelete={file} handleDeleteFile={handleDeleteFile} />
+            <ModalPopupEditFilesAdmin active={modalEditActive} setModalEditActive={setModalEditActive} file={file} />
         </div>
     )
 }

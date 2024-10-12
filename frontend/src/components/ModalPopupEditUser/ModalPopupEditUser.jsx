@@ -108,6 +108,7 @@ export const ModalPopupEditUser = ({ active, setModalActive, user }) => {
         <img className='modal_cloud_image' src={require('../../assets/cloud.png')} />
         <h3>Изменить данные пользователя {user.username}</h3>
         <Form className='input_form'>
+          
           <Form.Item className='form_item'>
             <Input
               allowClear
@@ -122,6 +123,7 @@ export const ModalPopupEditUser = ({ active, setModalActive, user }) => {
             </Button>
             {activeIconOkName && <CheckOutlined className='icon_change_ok' />}
           </Form.Item>
+          
           <Form.Item className='form_item'>
             <Input
               title={loginText}
@@ -137,6 +139,7 @@ export const ModalPopupEditUser = ({ active, setModalActive, user }) => {
             </Button>
             {activeIconOkLogin && <CheckOutlined className='icon_change_ok' />}
           </Form.Item>
+         
           <Form.Item className='form_item'>
             <Input
               allowClear
@@ -152,6 +155,7 @@ export const ModalPopupEditUser = ({ active, setModalActive, user }) => {
             </Button>
             {activeIconOkEmail && <CheckOutlined className='icon_change_ok' />}
           </Form.Item>
+          
           <Form.Item
             className='form_item'
             name="Select"
@@ -168,6 +172,7 @@ export const ModalPopupEditUser = ({ active, setModalActive, user }) => {
             </Button>
             {activeIconOkStaff && <CheckOutlined className='icon_change_ok' />}
           </Form.Item>
+          
           <Form.Item className='form_item'>
             <Input
               title={loginPassword}
@@ -183,6 +188,7 @@ export const ModalPopupEditUser = ({ active, setModalActive, user }) => {
             </Button>
             {activeIconOkPassword && <CheckOutlined className='icon_change_ok' />}
           </Form.Item>
+          
           {errInput}
           <div className='btn_edit_user'>
             {btnOkActive && <Button className='btn_modal'

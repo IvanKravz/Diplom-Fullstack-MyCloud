@@ -6,17 +6,12 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.authtoken.models import Token
 
 
-class FilesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = File
-        fields = ('id', 'filename', 'description', 'size', 'link', 'upload_time', 'downloadTime')
-
 class ApiUserSerializers(serializers.ModelSerializer):
-    files = FilesSerializer(read_only=True)
+    files = serializers.SerializerMethodField(source=File.objects.all())
     
     class Meta:
         model = User
-        fields = ('id', 'userlogin', 'username', 'email', 'password', 'is_staff', 'files')
+        fields = ['id', 'userlogin', 'username', 'email', 'password', 'is_staff', 'files']
 
     def update(self, instance, validated_data):
         if 'password' in validated_data:
@@ -32,6 +27,21 @@ class ApiUserSerializers(serializers.ModelSerializer):
             password=make_password(validated_data['password'])
         )
         return user_obj
+
+    def get_files(self, obj):
+        user_files = File.objects.filter(user=obj)
+        list_files = []
+        files = {}
+        for file in user_files:
+            files['id'] = file.id
+            files['filename'] = file.filename
+            files['description'] = file.description
+            files['size'] = file.size
+            files['upload_time'] = file.upload_time
+            files['downloadTime'] = file.downloadTime
+            files['link'] = file.link
+            list_files.append(files.copy())
+        return list_files
 
 
 class TokenSerializer(serializers.ModelSerializer):
@@ -72,3 +82,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'userlogin', 'username', 'email', 'is_staff', 'password')
         
+        
+class RestrictedUserSerializer(serializers.ModelSerializer):
+    files = serializers.SerializerMethodField(source=File.objects.all())
+    
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'files')
+        
+    def get_files(self, obj):
+        user_files = File.objects.filter(user=obj)
+        filenames = [file.filename for file in user_files if file.file]
+        print('filenames', filenames)
+        return filenames

@@ -9,15 +9,17 @@ export const loginText = 'Разрешены латинские буквы и ц
 export const loginPassword = 'Разрешено не менее 6 символов: как минимум одна заглавная буква, одна цифра и один специальный символ!'
 export const loginEmail = 'Неверный формат Email'
 
-export const getReadableFileSizeString = (fileSizeInBytes) => {
+export const getReadableFileSizeString = (size) => {
+    let sizeFile = Number(size)
+
     var i = -1;
     var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
     do {
-        fileSizeInBytes.size /= 1024;
+        sizeFile /= 1024;
         i++;
-    } while (fileSizeInBytes.size > 1024);
+    } while (sizeFile > 1024);
 
-    const filesSize = Math.max(fileSizeInBytes.size, 0.1).toFixed(2) + byteUnits[i];
+    const filesSize = Math.max(sizeFile, 0.1).toFixed(2) + byteUnits[i];
     return filesSize
 }
 
@@ -32,5 +34,5 @@ export function getSize(files) {
     }
 
     const size = Math.round(list_size.reduce((accumulator, current) => accumulator + current));
-    return getReadableFileSizeString({ size })
+    return getReadableFileSizeString(size)
 }

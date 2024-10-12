@@ -8,8 +8,7 @@ class ApiFileSerializers(serializers.ModelSerializer):
     
     class Meta:
         model = File
-        fields = ('id', 'filename', 'file', 'description',
-                  'upload_time', 'downloadTime', 'user', 'size', 'link')
+        fields = ['id', 'filename', 'file', 'description', 'upload_time', 'downloadTime', 'user', 'size', 'link']
 
     def get_size(self, obj):
         return obj.size

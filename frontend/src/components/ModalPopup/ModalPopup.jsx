@@ -1,10 +1,11 @@
 import React from 'react'
 import './ModalPopup.css'
 import { Button } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 
 export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fileDelete, handleDeleteFile }) => {
   const userParse = JSON.parse(sessionStorage.getItem('user'));
-  
+
   if (!user) {
     user = userParse;
   }
@@ -14,6 +15,7 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
       <div className={active ? 'modal_content active' : 'modal_content'} onClick={e => e.stopPropagation()}>
         {userParse.id !== user.id &&
           <>
+            <ExclamationCircleFilled className='icon_warning' />
             <h3>Действительно вы хотите удалить пользователя {user.username}? </h3>
             <div className='btn_edit_user'>
               <Button className='btn_modal'
@@ -30,8 +32,9 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
 
         {fileDelete &&
           <>
+            <ExclamationCircleFilled className='icon_warning' />
             <h3>Действительно вы хотите удалить файл {fileDelete.filename}? </h3>
-            <div className='btn_edit_user'>
+            <div className='btn_edit_file'>
               <Button className='btn_modal'
                 onClick={() => handleDeleteFile(fileDelete)}
               >Да
@@ -43,8 +46,9 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
             </div>
           </>}
 
-          {userParse.id === user.id && !fileDelete &&
+        {userParse.id === user.id && !fileDelete &&
           <>
+            <ExclamationCircleFilled className='icon_warning' />
             <h3>Вы действительно хотите удалить самого себя! </h3>
             <div className='btn_edit_user'>
               <Button className='btn_modal'
@@ -58,7 +62,6 @@ export const ModalPopup = ({ active, setModalActive, user, handleDeleteUser, fil
             </div>
           </>
         }
-
       </div>
     </div>
   )

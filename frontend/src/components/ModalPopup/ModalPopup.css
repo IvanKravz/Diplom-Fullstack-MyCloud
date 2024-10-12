@@ -25,6 +25,7 @@
     background-color: white;
     transform: scale(0.5);
     transition: 0.4s all;
+    text-align: center;
 }
 
 .modal_content.active {
@@ -33,4 +34,13 @@
 
 .btn_modal {
     margin: 5px;
+}
+
+.btn_edit_file {
+    text-align: center;
+}
+
+.icon_warning {
+    color: #e64c12;
+    font-size: 23px;
 }

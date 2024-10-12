@@ -1,6 +1,7 @@
 import React from 'react';
 import './UserMenu.css'
 import { Button } from 'antd';
+import { FrownOutlined } from '@ant-design/icons';
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
@@ -106,13 +107,15 @@ export const UserMenu = () => {
                                 {click && <UserEdit clickOff={clickOff} setModalActive={setModalActive} user={user} />}
                             </Card>
                             <div className='list_content'>
-                                {files?.map((file) => {
-                                    if (file.user === userParse.id) {
-                                        return (
-                                            <File key={file.id} fileItem={file} fileSize={getReadableFileSizeString} />
-                                        )
-                                    }
-                                })}
+                                <div className='cards_file'>
+                                    {files?.map((file) => {
+                                        if (file.user === userParse.id) {
+                                            return (
+                                                <File key={file.id} fileItem={file} fileSize={getReadableFileSizeString} />
+                                            )
+                                        }
+                                    })}
+                                </div>
                             </div>
                         </section>
                     }
@@ -120,11 +123,12 @@ export const UserMenu = () => {
             }
             {!userParse &&
                 <>
+                    <FrownOutlined className='user_menu_auth_smile'/>
                     <h2>Необходимо войти в профиль!</h2>
                     <Button size="md" onClick={() => navigate('/mycloud/login')}>Войти </Button>
                 </>
             }
-            {<ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />}
+            {userParse && <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />}
         </>
     )
 }

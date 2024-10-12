@@ -3,6 +3,7 @@ from accounts.models import User
 from django.dispatch import receiver
 import os
 from django.conf import settings
+from django.utils import timezone
 
 
 def uniq_filename(filename):
@@ -27,13 +28,15 @@ class File(models.Model):
     description = models.TextField(null=True, default='комментарий нет')
     size = models.CharField(null=True, default='')
     link = models.CharField(null=True, default='')
-    upload_time = models.DateTimeField(verbose_name='Время загрузки', auto_now_add=True)
+    upload_time = models.DateTimeField(default=timezone.now)
     downloadTime = models.CharField(default='', null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="files")
     
 
     def save(self, *args, **kwargs):
         userfolder = self.user.username
+        hash_link = hash(self.upload_time)
+
         file_root, file_extention = os.path.splitext(self.file.name)
         if self.id:
         ## Меняем существующий файл
@@ -53,7 +56,8 @@ class File(models.Model):
                 self.filename = uniq_filename(f'{file_root[:10]}{file_extention}')
                 self.file.name = os.path.join(userfolder, self.filename)
 
-        self.link = self.file.url
+
+        self.link = os.path.join('http://127.0.0.1:8000/', 's/', f'file{hash_link}')
         self.size = self.file.size
 
         super().save(*args, **kwargs)

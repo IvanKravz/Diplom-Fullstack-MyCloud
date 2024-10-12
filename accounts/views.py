@@ -8,37 +8,20 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, permissions, status
 from .models import User
-from .serializers import ApiUserSerializers, TokenSerializer, UserRegisterSerializer, UserLoginSerializer, UserSerializer
+from .serializers import ApiUserSerializers, RestrictedUserSerializer, TokenSerializer, UserRegisterSerializer, UserLoginSerializer, UserSerializer
 
 
 class ApiUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = ApiUserSerializers
 
-    def perform_create(self, serializer):
-        print('self.request.user', self.request.user)
-        serializer.save(files=self.request.user)
-
     # permission_classes = [
     #     permissions.IsAuthenticated
     # ]
     
-    # authentication_classes = ([
-    #     TokenAuthentication
-    # ])
-
-    # def partial_update(self, request, *args, **kwargs): 
-    #     serializer = self.get_serializer(data=request.data)
-    #     print ('serializer', serializer)
-
-    #     isinstance = self.get_serializer()
-    #     print('isinstance', isinstance)
-    #     serializer = ApiUserSerializers(isinstance, data=request.data, partial=True)
-    #     if not serializer.is_valid():
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    #     serializer.save()
-    #     return Response(serializer.data)
+    authentication_classes = ([
+        TokenAuthentication
+    ])
 
 
 class UserRegister(APIView):
@@ -91,8 +74,8 @@ class UserLogin(APIView):
         
 
 class UserLogout(APIView):
-    def post(self, requset):
-        logout(requset)
+    def post(self, request):
+        logout(request)
         return Response(status=status.HTTP_200_OK)
 
 
@@ -100,10 +83,6 @@ class UserView(APIView):
     permission_classes = [
         permissions.IsAuthenticated
     ]
-
-    # authentication_classes = [
-    #     SessionAuthentication
-    # ]
 
     def get(self, requset):
         serializer = UserSerializer(requset.user)

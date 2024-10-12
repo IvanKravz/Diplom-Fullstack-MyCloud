@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCookie } from 'react-use-cookie';
 
 const initialAdminState = {
     users: [],
@@ -100,7 +99,17 @@ export const createUser = createAsyncThunk(
 export const adminSlice = createSlice({
     name: 'admin',
     initialState: initialAdminState,
-    reducers: {},
+    reducers: (create)=> ({
+        addFiles: create.reducer((state, action) => {
+            state.files.push(action.payload)
+        }),
+        removeFiles: create.reducer((state, action) => {
+            state.files = state.files.filter((p) => p.id !== action.payload)
+        }),
+        clearFiles: create.reducer((state) => {
+            state.files = []
+        }),
+    }),
     extraReducers: (builder) => {
         builder
             .addCase(loadUsers.pending, (state) => {
@@ -117,3 +126,4 @@ export const adminSlice = createSlice({
 })
 
 export default adminSlice.reducer
+export const { addFiles, removeFiles, clearFiles } = adminSlice.actions;

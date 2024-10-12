@@ -1,11 +1,13 @@
 .folder_open_filed {
     cursor: pointer;
-    font-size: 18px;
+    width: 22px;
+    height: 20px;
+    display: flex;
 }
 
 .folder_open_filed:hover {
-    color: rgb(80, 187, 217);
-    font-size: 20px;
+    width: 25px;
+    height: 23px;
     transition: 0.4s;
 }
 
@@ -27,4 +29,13 @@
 .user_delete_outlined:hover {
     color: FireBrick;
     transition: 0.4s;
+}
+
+.admin_menu_auth_smile {
+    font-size: 30px;
+}
+
+.ant-table-cell {
+    word-break: break-all;
+    max-width: 150px;
 }
