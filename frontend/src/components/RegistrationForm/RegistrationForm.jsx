@@ -21,14 +21,14 @@ export const RegistrationForm = () => {
     ];
 
     const handleGoBack = () => {
-        navigate('/mycloud')
+        navigate('/')
     };
 
     const submitRegister = async () => {
         const response = await dispatch(register({ userlogin, username, email, is_staff, password }))
         if (register.fulfilled.match(response)) {
             await dispatch(login({ username, password }))
-            navigate('/mycloud')
+            navigate('/')
         }
     }
 

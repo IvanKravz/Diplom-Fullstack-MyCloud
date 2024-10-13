@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { apiUrl } from '../../Validations/Validations'
+
 
 const initialAdminState = {
     users: [],
@@ -10,7 +12,7 @@ const initialAdminState = {
 export const loadUsers = createAsyncThunk(
     'admin/loadUsers',
     async () => {
-        const response = await fetch('http://127.0.0.1:8000/api/users/', {
+        const response = await fetch(`${apiUrl}/users/`, {
             credentials: 'include',
             method: 'GET',
             headers: {
@@ -30,7 +32,7 @@ export const loadUsers = createAsyncThunk(
 export const deleteUser = createAsyncThunk(
     'admin/deleteUser',
     async (userId) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${userId}/`, {
+        const response = await fetch(`${apiUrl}/users/${userId}/`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +52,7 @@ export const deleteUser = createAsyncThunk(
 export const createUser = createAsyncThunk(
     'admin/createUser',
     async ({ userlogin, username, email, is_staff, password, files=[] }) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/`, {
+        const response = await fetch(`${apiUrl}/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

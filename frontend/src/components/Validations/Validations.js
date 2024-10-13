@@ -36,3 +36,6 @@ export function getSize(files) {
     const size = Math.round(list_size.reduce((accumulator, current) => accumulator + current));
     return getReadableFileSizeString(size)
 }
+
+export const apiUrl = 'http://89.111.175.49:8000/api'
+// export const apiUrl = 'http://127.0.0.1:8000/api'

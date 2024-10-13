@@ -18,7 +18,7 @@ export const StartMenu = () => {
       <div className='menu_button'>
 
         {!user &&
-          <Link className='login' to='/mycloud/login'>
+          <Link className='login' to='/login'>
             <Button className='login_btn'>Войти</Button>
           </Link>
         }
@@ -27,7 +27,7 @@ export const StartMenu = () => {
             <Button className='login_btn'>Войти как {user.username}</Button>
           </Link>
         }
-        <Link className='login' to='/mycloud/reg'>
+        <Link className='login' to='/reg'>
           <Button className='auth_btn'>Регистрация</Button>
         </Link>
       </div>

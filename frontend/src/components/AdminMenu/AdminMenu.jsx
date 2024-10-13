@@ -76,7 +76,7 @@ export const AdminMenu = () => {
         <>
             {userParse?.is_staff &&
                 <div className='form'>
-                    <LeftCircleOutlined className="header_form" onClick={() => navigate('/mycloud/user')} />
+                    <LeftCircleOutlined className="header_form" onClick={() => navigate('/user')} />
                     <h2 className="header_title">Кабинет администратора</h2>
                     {loading && <div className="card_loading">...Загружается</div>}
                     <AdminCreateUser />

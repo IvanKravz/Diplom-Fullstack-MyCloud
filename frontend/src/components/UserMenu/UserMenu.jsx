@@ -36,7 +36,7 @@ export const UserMenu = () => {
     const submitLogout = async () => {
         await dispatch(logout);
         dispatch(clearFiles())
-        navigate('/mycloud');
+        navigate('/');
     }
 
     const clickOff = () => {
@@ -47,7 +47,7 @@ export const UserMenu = () => {
         dispatch(deleteUser(user.id))
             .then(() => {
                 sessionStorage.removeItem('user');
-                navigate('/mycloud');
+                navigate('/');
             })
     }
 
@@ -65,7 +65,7 @@ export const UserMenu = () => {
                             {user['is_staff'] &&
                                 <Button
                                     variant="primary"
-                                    onClick={() => navigate('/mycloud/user/admin')}
+                                    onClick={() => navigate('/user/admin')}
                                 >Кабинет администратора
                                 </Button>
                             }
@@ -125,7 +125,7 @@ export const UserMenu = () => {
                 <>
                     <FrownOutlined className='user_menu_auth_smile'/>
                     <h2>Необходимо войти в профиль!</h2>
-                    <Button size="md" onClick={() => navigate('/mycloud/login')}>Войти </Button>
+                    <Button size="md" onClick={() => navigate('/login')}>Войти </Button>
                 </>
             }
             {userParse && <ModalPopup active={modalActive} setModalActive={setModalActive} user={user} handleDeleteUser={handleDeleteUser} />}

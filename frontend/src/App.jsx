@@ -12,12 +12,12 @@ function App() {
 
   const routes = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<Layout/>}>
-        <Route path='/mycloud' element={<StartMenu/>}/>
-        <Route path='mycloud/login' element={<LoginForm/>}/>
-        <Route path='mycloud/reg' element={<RegistrationForm/>}/>
-        <Route path='mycloud/user/admin' element={<AdminMenu/>}/>
-        <Route path='mycloud/user' element={<UserMenu/>}/>
+      <Route path='' element={<Layout/>}>
+        <Route path='' element={<StartMenu/>}/>
+        <Route path='login' element={<LoginForm/>}/>
+        <Route path='reg' element={<RegistrationForm/>}/>
+        <Route path='user/admin' element={<AdminMenu/>}/>
+        <Route path='user' element={<UserMenu/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Route>
     )

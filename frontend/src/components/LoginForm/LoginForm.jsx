@@ -22,7 +22,7 @@ export const LoginForm = () => {
         const response = await dispatch(login({ username, password }));
 
         if (login.fulfilled.match(response)) {
-            navigate('/mycloud/user');
+            navigate('/user');
         } else {
             setError('Вход в систему не удался. Неверные данные!');
         }
@@ -30,7 +30,7 @@ export const LoginForm = () => {
 
     return (
         <div className='form'>
-            <HomeOutlined className="header_form" onClick={() => navigate('/mycloud')} />
+            <HomeOutlined className="header_form" onClick={() => navigate('/')} />
             <Form
                 className='form_input'
                 form={form}

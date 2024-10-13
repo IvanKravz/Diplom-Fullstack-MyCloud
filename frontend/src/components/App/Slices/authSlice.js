@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { apiUrl } from '../../Validations/Validations'
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-    baseURL: "http://127.0.0.1:8000"
+    baseURL: apiUrl
 });
 
 const initialAuthState = {
@@ -19,7 +20,7 @@ export const register = createAsyncThunk(
     'auth/register',
     async ({ userlogin, username, email, is_staff, password }) => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/register', {
+            const response = await fetch(`${apiUrl}/register`, {
                 credentials: 'include',
                 method: 'POST',
                 headers: {
@@ -54,7 +55,7 @@ export const login = createAsyncThunk(
     'auth/login',
     async ({ username, password }) => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/login', {
+            const response = await fetch(`${apiUrl}/login`, {
                 credentials: 'include',
                 method: 'POST',
                 headers: {
@@ -80,7 +81,7 @@ export const login = createAsyncThunk(
 export const logout = async () => {
     sessionStorage.removeItem('user')
     client.post(
-        "/api/logout",
+        "/logout",
         { withCredentials: true, credentials: 'include' }
     )
 };
@@ -90,7 +91,7 @@ export const getUser = createAsyncThunk(
     'auth/getUser',
     async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/users/${JSON.parse(sessionStorage.getItem('user')).id}`, {
+            const response = await fetch(`${apiUrl}/users/${JSON.parse(sessionStorage.getItem('user')).id}`, {
                 credentials: 'include',
                 method: 'GET',
                 headers: {
@@ -114,7 +115,7 @@ export const getUser = createAsyncThunk(
 export const userEditName = createAsyncThunk(
     'auth/userEditName',
     async ({ id, username}) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+        const response = await fetch(`${apiUrl}/users/${id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
@@ -136,7 +137,7 @@ export const userEditName = createAsyncThunk(
 export const userEditLogin = createAsyncThunk(
     'auth/userEditLogin',
     async ({ id, userlogin}) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+        const response = await fetch(`${apiUrl}/users/${id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
@@ -158,7 +159,7 @@ export const userEditLogin = createAsyncThunk(
 export const userEditEmail = createAsyncThunk(
     'auth/userEditEmail',
     async ({ id, email}) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+        const response = await fetch(`${apiUrl}/users/${id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
@@ -180,7 +181,7 @@ export const userEditEmail = createAsyncThunk(
 export const userEditPassword = createAsyncThunk(
     'auth/userEditPassword',
     async ({ id, password}) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+        const response = await fetch(`${apiUrl}/users/${id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
@@ -202,7 +203,7 @@ export const userEditPassword = createAsyncThunk(
 export const userEditStaff = createAsyncThunk(
     'auth/userEdit',
     async ({ id, is_staff }) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}/`, {
+        const response = await fetch(`${apiUrl}/users/${id}/`, {
             credentials: 'include',
             method: 'PATCH',
             headers: {
@@ -235,7 +236,6 @@ export const authSlice = createSlice({
             })
             .addCase(register.rejected, (state, action) => {
                 state.error = action.error.message;
-                console.log('state.error', state.error)
             })
             .addCase(register.fulfilled, (state) => {
                 state.error = null;

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { apiUrl } from '../../Validations/Validations'
 
 const initialFileState = {
     files: [],
@@ -12,7 +13,7 @@ const initialFileState = {
 export const loadFiles = createAsyncThunk(
     'file/loadFiles',
     async () => {
-            const response = await fetch('http://127.0.0.1:8000/api/files', {
+            const response = await fetch(`${apiUrl}/files`, {
                 credentials: 'include',
                 method: 'GET',
                 headers: {
@@ -34,7 +35,7 @@ export const deleteFile = createAsyncThunk(
     'file/deleteFile',
     async (id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/files/${id}`, {
+            const response = await fetch(`${apiUrl}/files/${id}`, {
                 credentials: 'include',
                 method: 'DELETE',
                 headers: {
@@ -58,7 +59,7 @@ export const uploadFile = createAsyncThunk(
     'file/uploadFile',
     async (formData) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/files/`, {
+            const response = await fetch(`${apiUrl}/files/`, {
                 headers: {
                     'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
                 },
@@ -79,7 +80,7 @@ export const uploadFile = createAsyncThunk(
 export const updateFile = createAsyncThunk(
     'file/updateFile',
     async ({ id, newFileName, newDescription, dateDownload }) => {
-            const response = await fetch(`http://127.0.0.1:8000/api/files/${id}/`, {
+            const response = await fetch(`${apiUrl}/files/${id}/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + JSON.parse(sessionStorage.getItem('user')).token,
