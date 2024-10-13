@@ -57,7 +57,7 @@ class File(models.Model):
                 self.file.name = os.path.join(userfolder, self.filename)
 
 
-        self.link = os.path.join('http://127.0.0.1:8000/', 's/', f'file{hash_link}')
+        self.link = os.path.join('http://89.111.175.49:8000/', 's/', f'file{hash_link}')
         self.size = self.file.size
 
         super().save(*args, **kwargs)
