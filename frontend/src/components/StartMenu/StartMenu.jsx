@@ -23,7 +23,7 @@ export const StartMenu = () => {
           </Link>
         }
         {user &&
-          <Link className='login' to='/mycloud/user'>
+          <Link className='login' to='/user'>
             <Button className='login_btn'>Войти как {user.username}</Button>
           </Link>
         }

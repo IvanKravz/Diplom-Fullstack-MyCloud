@@ -5,7 +5,6 @@ from .models import File
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from django.http import HttpResponse
-import os
 
 class ApiFileViewSet(viewsets.ModelViewSet):
     queryset = File.objects.all()
@@ -30,7 +29,7 @@ class ApiFileViewSet(viewsets.ModelViewSet):
 
 def send_file(self, hash):
     try:
-        link = f"http://127.0.0.1:8000/s/{hash}"
+        link = f"http://89.111.175.49:8000/s/{hash}"
         file_obj = File.objects.get(link=link)
         response = HttpResponse(file_obj.file)
         response['Content-Disposition'] = f'attachment; filename="{file_obj.filename}"'
