@@ -1,18 +1,17 @@
-from django.shortcuts import render
-from rest_framework import viewsets, permissions, status
+import os
+from rest_framework import viewsets, status
 from .serializers import ApiFileSerializers
 from .models import File
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from django.http import HttpResponse
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class ApiFileViewSet(viewsets.ModelViewSet):
     queryset = File.objects.all()
     
-    # permission_classes = [
-    #     permissions.IsAuthenticated
-    # ] 
-
     authentication_classes = ([
         TokenAuthentication
     ])
@@ -29,7 +28,8 @@ class ApiFileViewSet(viewsets.ModelViewSet):
 
 def send_file(self, hash):
     try:
-        link = f"http://89.111.175.49:8000/s/{hash}"
+        link = f"{os.getenv('REACT_APP_API_URL')}s/{hash}"
+        print('link',link)
         file_obj = File.objects.get(link=link)
         response = HttpResponse(file_obj.file)
         response['Content-Disposition'] = f'attachment; filename="{file_obj.filename}"'

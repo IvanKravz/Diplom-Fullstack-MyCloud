@@ -1,10 +1,12 @@
+import os
 from django.db import models
 from accounts.models import User
 from django.dispatch import receiver
-import os
 from django.conf import settings
 from django.utils import timezone
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def uniq_filename(filename):
     if File.objects.filter(filename=filename):
@@ -57,7 +59,7 @@ class File(models.Model):
                 self.file.name = os.path.join(userfolder, self.filename)
 
 
-        self.link = os.path.join('http://89.111.175.49:8000/', 's/', f'file{hash_link}')
+        self.link = os.path.join(os.getenv('REACT_APP_API_URL'), 's/', f'file{hash_link}')
         self.size = self.file.size
 
         super().save(*args, **kwargs)
@@ -70,4 +72,4 @@ class File(models.Model):
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     if instance.file and os.path.isfile(instance.file.path):
         os.remove(instance.file.path)   
-         
+        
