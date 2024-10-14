@@ -29,7 +29,6 @@ class ApiFileViewSet(viewsets.ModelViewSet):
 def send_file(self, hash):
     try:
         link = f"{os.getenv('REACT_APP_API_URL')}/s/{hash}"
-        print('link',link)
         file_obj = File.objects.get(link=link)
         response = HttpResponse(file_obj.file)
         response['Content-Disposition'] = f'attachment; filename="{file_obj.filename}"'
