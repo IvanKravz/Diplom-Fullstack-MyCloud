@@ -148,7 +148,7 @@ export const AdminMenu = () => {
                     <FrownOutlined className='admin_menu_auth_smile'/>
                     <h2>Необходимо войти в профиль с правами администратора!</h2>
                     <Button
-                        size="md" onClick={() => navigate('/mycloud/login')}>Войти
+                        size="md" onClick={() => navigate('/login')}>Войти
                     </Button>
                 </>
             }
