@@ -6,10 +6,11 @@ node_modules/
 db.sqlite3
 migrations/
 media/
-/static/
+/frontend/static/
 # C extensions
 *.so
 .env
+
 
 # Distribution / packaging
 .Python
