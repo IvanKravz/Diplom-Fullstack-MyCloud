@@ -1,6 +1,3 @@
-/*!******************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/StartMenu/StartMenu.css ***!
-  \******************************************************************************************/
 .menu {
     display: flex;
     margin-top: 20px;
@@ -73,9 +70,6 @@
 .text_info {
     color: rgb(9, 27, 78);
 }
-/*!******************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/LoginForm/LoginForm.css ***!
-  \******************************************************************************************/
 .form {
     display: flex;
     flex-direction: column;
@@ -97,9 +91,6 @@
     color: rgb(9, 27, 78);
     display: flex;
 }
-/*!********************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/RegistrationForm/RegistrationForm.css ***!
-  \********************************************************************************************************/
 .input_form {
     display: flex;
     flex-direction: column;
@@ -122,18 +113,12 @@
     color: rgb(9, 27, 78);
     font-size: 15px;
 }
-/*!***************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/App.css ***!
-  \***************************************************************/
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
-/*!******************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminMenu/AdminMenu.css ***!
-  \******************************************************************************************/
 .folder_open_filed {
     cursor: pointer;
     width: 22px;
@@ -175,9 +160,6 @@
     word-break: break-all;
     max-width: 150px;
 }
-/*!********************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopup/ModalPopup.css ***!
-  \********************************************************************************************/
 .modal {
     width: 100vw;
     height: 100vh;
@@ -224,9 +206,6 @@
     color: #e64c12;
     font-size: 23px;
 }
-/*!******************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/AdminCreateUser/AdminCreateUser.css ***!
-  \******************************************************************************************************/
 .input_create_form {
     height: 30px;
     display: flex;
@@ -244,9 +223,6 @@
     color: SeaGreen;
     font-size: 23px;
 }
-/*!************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopupEditUser/ModalPopupEditUser.css ***!
-  \************************************************************************************************************/
 .modal {
     width: 100vw;
     height: 100vh;
@@ -307,9 +283,6 @@
     right: 5px;
     top: 6px;
 }
-/*!************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/ModalPopupEditFilesAdmin/ModalPopupEditFilesAdmin.css ***!
-  \************************************************************************************************************************/
 .modal {
     width: 100vw;
     height: 100vh;
@@ -370,9 +343,6 @@
     right: 5px;
     top: 6px;
 }
-/*!****************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/UserMenu/UserMenu.css ***!
-  \****************************************************************************************/
 .user_menu {
     display: flex;
     justify-content: center;
@@ -516,9 +486,6 @@
     font-size: 30px;
 }
 
-/*!********************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/File/File.css ***!
-  \********************************************************************************/
 .card_text_file {
     display: flex;
     width: 100%;
@@ -557,9 +524,6 @@
     display: contents;
 }
 
-/*!************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/components/DownloadFile/DownloadFile.css ***!
-  \************************************************************************************************/
 .upload_file_menu {
     display: flex;
     justify-content: center;
@@ -605,9 +569,6 @@
     transition: 1s;
 }
 
-/*!*****************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
-  \*****************************************************************/
 :root {
   font-family: Trebuchet MS, sans-serif;
     src: url(../9f1aa0037c24e0f6935e.ttf);

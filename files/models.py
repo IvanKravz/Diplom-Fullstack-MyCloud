@@ -59,7 +59,9 @@ class File(models.Model):
                 self.file.name = os.path.join(userfolder, self.filename)
 
 
-        self.link = f"{os.getenv('REACT_APP_API_URL')}/s/file{hash_link}"
+        self.link = f"{os.getenv('REACT_APP_URL')}/s/file{hash_link}"
+        print('REACT_APP_API_URL', os.getenv('REACT_APP_API_URL'))
+        print('self.link', self.link)
         self.size = self.file.size
 
         super().save(*args, **kwargs)
