@@ -15,6 +15,9 @@ import { getReadableFileSizeString, getSize } from '../Validations/Validations';
 import { UserEdit } from '../UserEdit/UserEdit';
 import { ModalPopup } from '../ModalPopup/ModalPopup';
 import { deleteUser } from '../App/Slices/AdminSlice';
+import cloud from '../../assets/cloud.png';
+import mandalorec from '../../assets/Mandalorec.png';
+import grogu from '../../assets/Grogu.png';
 
 export const UserMenu = () => {
     const dispatch = useAppDispatch();
@@ -57,7 +60,7 @@ export const UserMenu = () => {
                 <>
                     <div className='user_header'>
                         <div className='user_header_text'>MyCloud</div>
-                        <img className='user_cloud_image' src={require('../../assets/cloud.png')} />
+                        <img className='user_cloud_image' src={cloud} />
                     </div>
                     <div className='user_header'>
                         <div className='user_header_text_cab'>Личный кабинет</div>
@@ -87,13 +90,13 @@ export const UserMenu = () => {
                                 {user['is_staff'] &&
                                     <Card.Img className='card_user'
                                         variant="top"
-                                        src={require('../../assets/Mandalorec.png')}
+                                        src={mandalorec}
                                     />
                                 }
                                 {!user['is_staff'] &&
                                     <Card.Img className='card_user'
                                         variant="top"
-                                        src={require('../../assets/Grogu.png')}
+                                        src={grogu}
                                     />
                                 }
                                 <Card.Body className='card_user_text'>

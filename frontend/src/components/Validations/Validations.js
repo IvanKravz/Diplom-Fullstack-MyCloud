@@ -37,5 +37,5 @@ export function getSize(files) {
     return getReadableFileSizeString(size)
 }
 
-export const apiUrl = 'http://89.111.175.49:8000/api'
-// export const apiUrl = 'http://127.0.0.1:8000/api'
+// export const apiUrl = 'http://89.111.175.49:80/api'
+export const apiUrl = 'http://127.0.0.1:8000/api'

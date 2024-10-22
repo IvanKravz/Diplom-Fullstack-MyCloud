@@ -11,6 +11,8 @@ import { AdminCreateUser } from '../AdminCreateUser/AdminCreateUser';
 import { ModalPopup } from '../ModalPopup/ModalPopup';
 import { ModalPopupEditUser } from '../ModalPopupEditUser/ModalPopupEditUser';
 import { AdminEditFilesUser } from '../AdminEditFilesUser/AdminEditFilesUser';
+import folderOpen from '../../assets/folder_open.png';
+import folderClosed from '../../assets/folder_closed.png';
 
 export const AdminMenu = () => {
     const userParse = JSON.parse(sessionStorage.getItem('user'));
@@ -112,10 +114,10 @@ export const AdminMenu = () => {
                                             {len}
                                             {isClickFolder(user.id) ?
                                                 <img className='folder_open_filed'
-                                                    src={require('../../assets/folder_open.png')}
+                                                    src={folderOpen}
                                                     onClick={() => { handleRemoveIdFolder(user); setFiles(user.files); setUser(user) }} /> :
                                                 <img className='folder_open_filed'
-                                                    src={require('../../assets/folder_closed.png')}
+                                                    src={folderClosed}
                                                     onClick={() => { handleAddIdFolder(user); setFiles(user.files); setUser(user) }} />
                                             }
 
